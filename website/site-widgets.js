@@ -204,9 +204,9 @@
   .sw-tests input{margin:0}
   .sw-qa{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
   .sw-qa button{flex:1;min-width:180px;border:0;border-radius:30px;padding:13px 18px;font:700 15px 'Nunito Sans',sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-  .sw-qa .wa{background:#25D366;color:#fff}.sw-qa .em{background:#254E93;color:#fff}
+  .sw-qa .rq{background:linear-gradient(135deg,#254E93,#02063B);color:#fff;box-shadow:0 10px 24px rgba(37,78,147,.35);transition:transform .2s,box-shadow .2s}.sw-qa .rq:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(37,78,147,.45)}
   .sw-qn{grid-column:1/-1;font-size:12px;color:#6b7a93;margin:0}
-  .sw-ok{padding:40px 26px;text-align:center}.sw-ok i{font-size:54px;color:#25a35a}
+  .sw-ok{padding:44px 30px;text-align:center;font-family:'Nunito Sans',sans-serif}.sw-ok i{font-size:60px;color:#25a35a;display:inline-block;animation:swPop .6s cubic-bezier(.2,1.4,.4,1) both}.sw-ok h3{color:#02063B;font-size:24px;margin:14px 0 8px}.sw-ok p{color:#444;font-size:16px;line-height:1.6;margin:0 0 10px}.sw-ok .ref{display:inline-block;margin-top:6px;background:#EEF4FF;color:#254E93;font-weight:800;border-radius:20px;padding:6px 14px;font-size:13px}.sw-ok button{margin-top:18px;border:0;background:#254E93;color:#fff;border-radius:30px;padding:11px 26px;font:700 15px 'Nunito Sans',sans-serif;cursor:pointer}@keyframes swPop{0%{transform:scale(0)}100%{transform:scale(1)}}
   .sw-quote-tab{position:fixed;right:0;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:2400;background:linear-gradient(180deg,#F59E0B,#ea7a00);color:#fff;border:0;padding:16px 10px;border-radius:0 12px 12px 0;font:800 14px 'Nunito Sans',sans-serif;letter-spacing:.5px;cursor:pointer;box-shadow:-4px 6px 18px rgba(0,0,0,.2)}
   .sw-quote-tab:hover{padding-right:14px}
   @media(max-width:600px){.sw-qf{grid-template-columns:1fr}.sw-quote-tab{display:none}}
@@ -226,11 +226,10 @@
     '<label>Expected timeline<select name="Timeline"><option>Within 1 month</option><option>1–3 months</option><option>3–6 months</option><option>Exploring / tender</option></select></label>' +
     '<label>Need devices (ReMeDi Kits)?<select name="Kits"><option>Yes – kits + integration</option><option>Integration only</option><option>Not sure</option></select></label>' +
     '<label class="full">Anything else?<textarea name="Notes" rows="3" placeholder="Your platform, existing systems, tender reference…"></textarea></label>' +
-    '<div class="sw-qa"><button type="submit" class="wa" data-via="wa"><i class="bi bi-whatsapp"></i> Send via WhatsApp</button><button type="submit" class="em" data-via="em"><i class="bi bi-envelope-fill"></i> Send via Email</button></div>' +
+    '<div class="sw-qa"><button type="submit" class="rq"><i class="bi bi-send-check-fill"></i> Request Quote</button></div>' +
     '<p class="sw-qn">Your details are used only to respond to this enquiry.</p></form></div>';
   document.body.appendChild(q);
-  var qf = q.querySelector("form"), via = "wa";
-  qf.querySelectorAll("button[data-via]").forEach(function (b) { b.onclick = function () { via = b.dataset.via; }; });
+  var qf = q.querySelector("form");
   function openQuote() { q.hidden = false; setTimeout(function () { qf.querySelector("input").focus(); }, 50); }
   window.openQuote = openQuote;
   q.querySelector(".sw-x").onclick = function () { q.hidden = true; };
@@ -246,10 +245,25 @@
     if (qf.elements.Notes.value.trim()) lines.push("Notes: " + qf.elements.Notes.value.trim());
     lines.push("", "Page: " + location.href);
     var msg = lines.join("\n");
-    if (via === "wa" && wa) window.open("https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
-    else location.href = "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("ReMeDi IoT integration quote – " + qf.elements.Organisation.value) + "&body=" + encodeURIComponent(msg);
-    q.querySelector(".sw-qb").innerHTML = '<div class="sw-ok"><i class="bi bi-check-circle-fill"></i><h3>Thank you, ' + qf.elements.Name.value.split(" ")[0].replace(/[<>&"]/g, "") + '!</h3><p>Your request is ready to send. Our team will get back to you within 1 business day.</p></div>';
-    setTimeout(function () { q.hidden = true; }, 4500);
+    var ref = "RQ-" + Date.now().toString(36).toUpperCase().slice(-6);
+    msg = "Ref: " + ref + "\n" + msg;
+    // Internal routing: for now the lead goes to the NCPL WhatsApp inbox (replace with CRM/API backend later)
+    if (wa) window.open("https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+    else location.href = "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("Quote request " + ref) + "&body=" + encodeURIComponent(msg);
+    var THANKS = [
+      "Together, we are bringing quality diagnostics closer to every community.",
+      "Every test brought closer to a patient is a life made healthier — thank you for taking this step with us.",
+      "Great healthcare starts with great partners. We are excited to work with you.",
+      "You have just taken the first step towards faster, smarter point-of-care diagnostics.",
+      "Healthcare that reaches the last mile starts with conversations like this one. Thank you!",
+      "Our team is already looking forward to helping you deliver care anytime, anywhere."
+    ];
+    var first = qf.elements.Name.value.trim().split(" ")[0].replace(/[<>&"']/g, "");
+    q.querySelector(".sw-qb").innerHTML = '<div class="sw-ok"><i class="bi bi-check-circle-fill"></i><h3>Thank you, ' + first + '! 🎉</h3>' +
+      '<p>Your quote request has been received. Our ReMeDi team will get back to you within <b>1 business day</b>.</p>' +
+      '<p><i style="font-size:15px;color:#254E93;animation:none" class="bi bi-quote"></i> ' + THANKS[Math.floor(Math.random() * THANKS.length)] + '</p>' +
+      '<span class="ref">Reference: ' + ref + '</span><br><button type="button" class="sw-okc">Close</button></div>';
+    q.querySelector(".sw-okc").onclick = function () { q.hidden = true; };
   };
   // Floating "Get a Quote" tab
   var tab = document.createElement("button"); tab.className = "sw-quote-tab"; tab.type = "button"; tab.textContent = "GET A QUOTE"; tab.onclick = openQuote;
