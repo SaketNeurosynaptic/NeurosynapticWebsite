@@ -125,12 +125,13 @@
   var body = p.querySelector(".sw-body"), inp = p.querySelector("input");
 
   var MAIN = ON_IOT
-    ? ["How does it work?", "Which tests?", "e-Sanjeevani", "How to integrate?", "Get an integration quote", "Site map", "Talk to a person"]
+    ? ["How does it work?", "Which tests?", "e-Sanjeevani", "Book a demo", "Get an integration quote", "Site map", "Talk to a person"]
     : ["About NCPL", "Our products", "ReMeDi Platform", "ReMeDi Kit", "Awards", "Site map", "Talk to a person"];
   var GREET = ON_IOT
     ? "Hi there! 👋 I'm Remy. Exploring ReMeDi IoT? I can explain how it connects point-of-care tests to your health platform, the 27 tests it supports, or prepare an integration quote for you."
     : "Hi there! 👋 I'm Remy, your ReMeDi assistant. Welcome to Neurosynaptic! Need some help? I can tell you about NCPL, the ReMeDi Platform and Kit, our healthcare models and products — or connect you with our team.";
   var KB = [
+    { k: ["demo", "book a demo", "schedule", "meeting", "presentation"], demo: true },
     { k: ["site map", "sitemap", "navigate", "pages", "menu", "where can i find"], a: 'Here is everything on our site:<br>• <a href="neurosynaptic_site_clone.html">Home</a><br>• About: <a href="about-us.html">About Us</a>, <a href="leadership-team-head.html">Leadership</a>, <a href="board-of-directors.html">Board</a>, <a href="partnerships.html">Partnerships</a>, <a href="testimonial.html">Testimonials</a>, <a href="commitment-to-quality-2.html">Quality</a>, <a href="awards-and-recognitions-2.html">Awards</a><br>• Solutions: <a href="our-services-and-solutions.html">Services & Solutions</a>, <a href="remedi-solutions-suite.html">ReMeDi Solutions Suite</a>, <a href="remedi-kit-standard-configuration.html">ReMeDi Kit configuration</a><br>• Products: <a href="remedi-iot.html">ReMeDi IoT</a><br>• Media: <a href="downloads.html">Downloads</a>, <a href="photo-gallery.html">Photos</a>, <a href="video-gallery.html">Videos</a>, <a href="blog.html">Blog</a><br>• <a href="contact-us-2.html">Contact Us</a>', q: ["Leadership", "Awards", "Downloads", "Talk to a person"] },
     { k: ["leader", "founder", "ceo", "sameer", "rajeev", "management"], a: 'NCPL was founded in 2002 by Sameer Sawarkar (Founder & CEO, Ashoka Fellow, 29 years of technical and management experience) and Rajeev Kumar. Meet the full team on the <a href="leadership-team-head.html">Leadership page</a>.', q: ["Board of directors", "About NCPL"] },
     { k: ["board", "director", "investor"], a: 'Our Board includes Nagaraja Prakasam (angel investor, co-founder IANImpact), Charles-Antoine Janssen (co-founder, Kois impact investing) and Shrikant Shingane, among others. Investors include IAN, HealthQuad and KOIS. <a href="board-of-directors.html">See the Board</a>.', q: ["Leadership", "Partners"] },
@@ -180,6 +181,7 @@
     setTimeout(function () {
       ty.remove();
       if (!best) { add("I'm not sure about that one. Our team can help:<br>" + human()); chips(MAIN); return; }
+      if (best.demo) { add("Happy to set that up! Pick a date and time that suits you and our team will confirm."); if (window.openDemo) window.openDemo(); chips(["Talk to a person", "What is ReMeDi IoT?"]); return; }
       if (best.quote) { add("Great! Fill in a few details and we'll send you a tailored integration quote."); openQuote(); chips(["Talk to a person", "What is ReMeDi IoT?"]); return; }
       add(best.a + (best.human ? "<br>" + human() : "")); chips(best.q || MAIN);
     }, 650);
@@ -519,4 +521,81 @@ function u(){f.classList.toggle('chat-on',!p.hidden)}new MutationObserver(u).obs
       box.querySelector("button").onclick = function () { form.reset(); form.querySelectorAll(".cf-count").forEach(function (c) { c.textContent = "0 / 1000"; }); pane.replaceChild(saved, box); };
     }, true);
   });
+})();
+
+/* ---------- Book a demo: scheduling form (preferred date/time), sent internally ---------- */
+(function () {
+  var st = document.createElement("style");
+  st.textContent = `
+  .dm{position:fixed;inset:0;z-index:2700;background:rgba(2,6,59,.6);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Nunito Sans',sans-serif}
+  .dm[hidden]{display:none}
+  .dm-b{background:#fff;border-radius:20px;width:600px;max-width:100%;max-height:92vh;overflow:auto;box-shadow:0 30px 70px rgba(2,6,59,.4);animation:dmUp .35s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes dmUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .dm-h{background:linear-gradient(135deg,#254E93,#02063B);color:#fff;padding:22px 26px;position:relative}
+  .dm-h h3{margin:0 0 4px;font-size:22px;color:#fff;font-weight:900}.dm-h p{margin:0;opacity:.85;font-size:14px}
+  .dm-x{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);border:0;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer}
+  .dm-f{padding:22px 26px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .dm-f label{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:700;color:#02063B}
+  .dm-f .full{grid-column:1/-1}
+  .dm-f input,.dm-f select,.dm-f textarea{border:1.5px solid #d7e1f0;border-radius:10px;padding:10px 12px;font:15px 'Nunito Sans',sans-serif;outline:none;background:#fff}
+  .dm-f input:focus,.dm-f select:focus,.dm-f textarea:focus{border-color:#254E93;box-shadow:0 0 0 3px rgba(37,78,147,.12)}
+  .dm-f .err{border-color:#d93025}
+  .dm-slots{display:flex;flex-wrap:wrap;gap:8px}
+  .dm-slots label{flex-direction:row;align-items:center;gap:6px;border:1.5px solid #d7e1f0;border-radius:20px;padding:7px 13px;cursor:pointer;font-weight:600;transition:.2s}
+  .dm-slots input{position:absolute;opacity:0;pointer-events:none}
+  .dm-slots label:has(input:checked){background:#254E93;color:#fff;border-color:#254E93}
+  .dm-slots.err label{border-color:#d93025}
+  .dm-go{grid-column:1/-1;border:0;border-radius:30px;padding:14px;font:800 16px 'Nunito Sans',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,#254E93,#02063B);box-shadow:0 10px 24px rgba(37,78,147,.35)}
+  .dm-n{grid-column:1/-1;font-size:12px;color:#6b7a93;margin:0}
+  .dm-ok{padding:40px 28px;text-align:center}.dm-ok i{font-size:60px;color:#25a35a}.dm-ok h3{color:#02063B;font-size:24px;margin:12px 0 8px}.dm-ok p{color:#444;line-height:1.6;margin:0 0 10px}
+  .dm-ok .slot{display:inline-block;background:#EEF4FF;color:#254E93;font-weight:800;border-radius:14px;padding:10px 16px;margin:6px 0}
+  .dm-ok button{margin-top:14px;border:0;background:#254E93;color:#fff;border-radius:30px;padding:11px 26px;font:700 15px 'Nunito Sans',sans-serif;cursor:pointer}
+  @media(max-width:600px){.dm-f{grid-template-columns:1fr}}
+  `;
+  document.head.appendChild(st);
+  var SLOTS = ["10:00 – 11:00", "11:30 – 12:30", "14:00 – 15:00", "15:30 – 16:30", "17:00 – 18:00"];
+  var today = new Date(); var min = new Date(today.getTime() + 864e5).toISOString().slice(0, 10);
+  var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata");
+  var m = document.createElement("div"); m.className = "dm"; m.hidden = true; m.setAttribute("role", "dialog"); m.setAttribute("aria-label", "Book a demo");
+  var formHTML = '<div class="dm-h"><h3><i class="bi bi-calendar-check"></i> Book a ReMeDi IoT demo</h3><p>Pick a time that suits you — our team will confirm and reach out.</p><button class="dm-x" aria-label="Close"><i class="bi bi-x-lg"></i></button></div>' +
+    '<form class="dm-f" novalidate>' +
+    '<label>Full name*<input name="Name" required></label>' +
+    '<label>Organisation*<input name="Organisation" required></label>' +
+    '<label>Work email*<input name="Email" type="email" required></label>' +
+    '<label>Phone / WhatsApp*<input name="Phone" type="tel" required></label>' +
+    '<label>Preferred date*<input name="Date" type="date" min="' + min + '" required></label>' +
+    '<label>Alternate date<input name="AltDate" type="date" min="' + min + '"></label>' +
+    '<label class="full">Preferred time slot* <span style="font-weight:600;color:#6b7a93">(' + tz + ', Mon–Sat)</span><div class="dm-slots">' + SLOTS.map(function (s, i) { return '<label><input type="radio" name="Slot" value="' + s + '">' + s + '</label>'; }).join("") + '</div></label>' +
+    '<label>Demo mode<select name="Mode"><option>Online (video call)</option><option>In person at our office</option><option>On-site at your facility</option></select></label>' +
+    '<label>Attendees<select name="Attendees"><option>1–2</option><option>3–5</option><option>6–10</option><option>10+</option></select></label>' +
+    '<label class="full">What should we focus on?<textarea name="Focus" rows="3" placeholder="e.g. integration with our HMIS, ECG & spirometry workflow, pricing…"></textarea></label>' +
+    '<button type="submit" class="dm-go"><i class="bi bi-send-check-fill"></i> Request demo</button>' +
+    '<p class="dm-n">Your details are used only to schedule this demo.</p></form>';
+  document.body.appendChild(m);
+  function build() {
+    m.innerHTML = '<div class="dm-b">' + formHTML + '</div>';
+    m.querySelector(".dm-x").onclick = function () { m.hidden = true; };
+    var f = m.querySelector("form");
+    f.onsubmit = function (e) {
+      e.preventDefault(); var ok = true;
+      f.querySelectorAll("[required]").forEach(function (i) { var bad = !i.value.trim() || (i.type === "email" && !/^\S+@\S+\.\S+$/.test(i.value)); i.classList.toggle("err", bad); if (bad) ok = false; });
+      var slot = f.querySelector("input[name=Slot]:checked"); f.querySelector(".dm-slots").classList.toggle("err", !slot); if (!slot) ok = false;
+      if (!ok) return;
+      var v = function (n) { return (f.elements[n] && f.elements[n].value || "").trim(); };
+      var ref = "DM-" + Date.now().toString(36).toUpperCase().slice(-6);
+      var fmt = function (d) { return d ? new Date(d + "T00:00:00").toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short", year: "numeric" }) : ""; };
+      var when = fmt(v("Date")) + ", " + slot.value + " (" + tz + ")";
+      var msg = ["Demo request – Ref: " + ref, "", "Name: " + v("Name"), "Organisation: " + v("Organisation"), "Email: " + v("Email"), "Phone: " + v("Phone"),
+        "Preferred: " + when, v("AltDate") ? "Alternate date: " + fmt(v("AltDate")) : null, "Mode: " + v("Mode"), "Attendees: " + v("Attendees"),
+        v("Focus") ? "Focus: " + v("Focus") : null, "", "Page: " + location.href].filter(function (x) { return x !== null; }).join("\n");
+      if (window.ncplSendLead) window.ncplSendLead("demo", ref, msg);
+      var fn = v("Name").split(" ")[0].replace(/[<>&"']/g, "");
+      m.querySelector(".dm-b").innerHTML = '<div class="dm-ok"><i class="bi bi-calendar2-check-fill"></i><h3>Thank you, ' + fn + '! 🎉</h3><p>Your demo request is in. Our team will confirm your slot and reach out shortly.</p><div class="slot"><i class="bi bi-clock"></i> ' + when.replace(/[<>&]/g, "") + '</div><p style="color:#254E93;font-weight:600">We look forward to showing you how ReMeDi IoT brings diagnostics closer to every patient.</p><span style="font-size:13px;color:#6b7a93">Reference: ' + ref + '</span><br><button type="button">Close</button></div>';
+      m.querySelector(".dm-ok button").onclick = function () { m.hidden = true; };
+    };
+  }
+  window.openDemo = function () { build(); m.hidden = false; setTimeout(function () { var i = m.querySelector("input"); if (i) i.focus(); }, 50); };
+  m.addEventListener("click", function (e) { if (e.target === m) m.hidden = true; });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !m.hidden) m.hidden = true; });
+  document.addEventListener("click", function (e) { var t = e.target.closest("[data-demo],a[href='#demo']"); if (t) { e.preventDefault(); window.openDemo(); } });
 })();
