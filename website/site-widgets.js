@@ -422,3 +422,92 @@ function u(){f.classList.toggle('chat-on',!p.hidden)}new MutationObserver(u).obs
     io.observe(wrap);
   } else start();
 })();
+
+/* ---------- Contact page: modern forms with validation + thank-you (Contact & Partnership tabs) ---------- */
+(function () {
+  if (!/contact-us-2\.html$/i.test(location.pathname)) return;
+  var WA = "918871613869"; /* keep in sync with CONFIG.WHATSAPP_NUMBER (temporary) */
+  var st = document.createElement("style");
+  st.textContent = `
+  .contact-section .item-form h2{font-family:'Nunito Sans',sans-serif!important;font-weight:900!important;color:#02063B!important;font-size:clamp(28px,2.6vw,38px)!important;margin-bottom:6px!important}
+  .cf-sub{font:500 16px/1.5 'Nunito Sans',sans-serif;color:#5b6b85;margin:0 0 22px}
+  .contact-section .nav-tabs{border:0!important;background:#EEF3FB;border-radius:14px;padding:6px;display:inline-flex;gap:4px;margin-bottom:26px!important}
+  .contact-section .nav-tabs .nav-link{border:0!important;border-radius:10px!important;background:transparent!important;color:#254E93!important;font:700 15px 'Nunito Sans',sans-serif!important;padding:10px 20px!important;transition:background .25s,color .25s,box-shadow .25s}
+  .contact-section .nav-tabs .nav-link.active{background:#fff!important;color:#02063B!important;box-shadow:0 4px 14px rgba(2,6,59,.12)}
+  .cf-form .mb-3{position:relative;margin-bottom:18px!important}
+  .cf-form .form-label{font:700 13.5px 'Nunito Sans',sans-serif!important;color:#02063B!important;margin-bottom:7px!important;letter-spacing:.2px}
+  .cf-form .form-label .req{color:#d93025;margin-left:2px}
+  .cf-form .form-control{font:500 15.5px 'Nunito Sans',sans-serif!important;border:1.5px solid #dbe3f0!important;border-radius:12px!important;padding:12px 14px 12px 44px!important;background:#fbfcfe!important;transition:border-color .2s,box-shadow .2s,background .2s;height:auto!important}
+  .cf-form textarea.form-control{padding-top:12px!important;min-height:130px;resize:vertical}
+  .cf-form .form-control:focus{border-color:#254E93!important;background:#fff!important;box-shadow:0 0 0 4px rgba(37,78,147,.12)!important;outline:none}
+  .cf-form .cf-ic{position:absolute;left:15px;top:41px;color:#8aa0c2;font-size:16px;pointer-events:none;transition:color .2s}
+  .cf-form .mb-3:focus-within .cf-ic{color:#254E93}
+  .cf-form .is-bad{border-color:#d93025!important;box-shadow:0 0 0 4px rgba(217,48,37,.08)!important}
+  .cf-form .cf-err{display:none;color:#d93025;font:600 12.5px 'Nunito Sans',sans-serif;margin-top:5px}
+  .cf-form .is-bad~.cf-err{display:block}
+  .cf-form .cf-count{position:absolute;right:12px;bottom:10px;font:600 12px 'Nunito Sans',sans-serif;color:#9aa8bf}
+  .cf-form .g-recaptcha{display:none}
+  .cf-form .btn-Query{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:10px;cursor:pointer;background:linear-gradient(135deg,#254E93,#02063B);color:#fff;font:800 16px 'Nunito Sans',sans-serif;padding:14px 34px;border-radius:40px;box-shadow:0 12px 26px rgba(37,78,147,.35);transition:transform .2s,box-shadow .2s}
+  .cf-form .btn-Query:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(37,78,147,.45)}
+  .cf-form .mt-5{margin-top:22px!important;align-items:center;gap:16px;flex-wrap:wrap}
+  .cf-note{font:500 13px 'Nunito Sans',sans-serif;color:#7a889f}
+  .cf-ok{text-align:center;padding:30px 10px;font-family:'Nunito Sans',sans-serif;animation:cfIn .5s ease both}
+  .cf-ok i.bi-check-circle-fill{font-size:62px;color:#25a35a;display:inline-block;animation:cfPop .6s cubic-bezier(.2,1.4,.4,1) both}
+  .cf-ok h3{color:#02063B;font-size:26px;margin:14px 0 8px;font-weight:900}.cf-ok p{color:#444;font-size:16px;line-height:1.6;margin:0 auto 10px;max-width:520px}
+  .cf-ok .ref{display:inline-block;background:#EEF4FF;color:#254E93;font-weight:800;border-radius:20px;padding:6px 14px;font-size:13px;margin-top:4px}
+  .cf-ok button{margin-top:18px;border:1.5px solid #254E93;background:#fff;color:#254E93;border-radius:30px;padding:10px 24px;font:700 15px 'Nunito Sans',sans-serif;cursor:pointer}
+  @keyframes cfPop{0%{transform:scale(0)}100%{transform:scale(1)}}@keyframes cfIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  `;
+  document.head.appendChild(st);
+  var h2 = document.querySelector(".contact-section .item-form h2");
+  if (h2 && !document.querySelector(".cf-sub")) h2.insertAdjacentHTML("afterend", '<p class="cf-sub">Have a question, a partnership idea or a project in mind? Send us a note — we reply within one business day.</p>');
+  var ICONS = { name: "bi-person", email: "bi-envelope", subject: "bi-chat-left-text", description: "bi-pencil-square", organisation: "bi-building", phone: "bi-telephone" };
+  var PH = { name: "Your full name", email: "you@organisation.com", subject: "How can we help?", description: "Tell us a little about your requirement…", organisation: "Organisation / department", phone: "+91 98xxx xxxxx" };
+  var THANKS = [
+    "Together, we are bringing quality healthcare closer to every community.",
+    "Every conversation like this brings care one step closer to the last mile.",
+    "Great healthcare starts with great partners — we are glad you reached out.",
+    "Our team is already looking forward to helping you deliver care anytime, anywhere.",
+    "Thank you for being part of the journey to make healthcare accessible for all."
+  ];
+  function field(form, name, label, type, before) {
+    var id = form.id + "-" + name, html = '<div class="mb-3"><label for="' + id + '" class="form-label">' + label + '</label><input class="form-control" type="' + type + '" id="' + id + '" name="' + name + '"' + (name === "organisation" ? " required" : "") + '></div>';
+    before.insertAdjacentHTML("beforebegin", html);
+  }
+  document.querySelectorAll(".contact-section form.ajax-form").forEach(function (form) {
+    form.classList.add("cf-form"); form.setAttribute("novalidate", "");
+    var isP = form.id === "partnershipForm";
+    var subj = form.querySelector("[name=subject]").closest(".mb-3");
+    if (isP) field(form, "organisation", "Organisation", "text", subj);
+    field(form, "phone", "Phone / WhatsApp <span style=\"color:#9aa8bf;font-weight:600\">(optional)</span>", "tel", subj);
+    form.querySelectorAll(".mb-3").forEach(function (g) {
+      var c = g.querySelector(".form-control"); if (!c) return;
+      if (form.id) c.id = form.id + "-" + c.name; var lb = g.querySelector("label"); if (lb) lb.setAttribute("for", c.id);
+      if (c.required && lb && !lb.querySelector(".req")) lb.insertAdjacentHTML("beforeend", '<span class="req">*</span>');
+      c.placeholder = PH[c.name] || ""; g.insertAdjacentHTML("afterbegin", '<i class="cf-ic bi ' + (ICONS[c.name] || "bi-dot") + '"></i>');
+      c.insertAdjacentHTML("afterend", '<div class="cf-err">' + (c.type === "email" ? "Please enter a valid email address." : "This field is required.") + "</div>");
+      c.addEventListener("input", function () { c.classList.remove("is-bad"); });
+      if (c.tagName === "TEXTAREA") { c.maxLength = 1000; g.insertAdjacentHTML("beforeend", '<span class="cf-count">0 / 1000</span>'); var ct = g.querySelector(".cf-count"); c.addEventListener("input", function () { ct.textContent = c.value.length + " / 1000"; }); }
+    });
+    var btn = form.querySelector(".btn-Query"); if (btn) { btn.innerHTML = '<i class="bi bi-send-fill"></i> ' + (isP ? "Send partnership enquiry" : "Send message"); btn.insertAdjacentHTML("afterend", '<span class="cf-note"><i class="bi bi-shield-lock"></i> Your details are used only to respond to you.</span>'); }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); e.stopImmediatePropagation();
+      var ok = true, first = null;
+      form.querySelectorAll(".form-control").forEach(function (c) {
+        var bad = c.required && (!c.value.trim() || (c.type === "email" && !/^\S+@\S+\.\S+$/.test(c.value)));
+        c.classList.toggle("is-bad", bad); if (bad) { ok = false; first = first || c; }
+      });
+      if (!ok) { first.focus(); return; }
+      var ref = (isP ? "PT-" : "CT-") + Date.now().toString(36).toUpperCase().slice(-6);
+      var v = function (n) { var el = form.querySelector("[name=" + n + "]"); return el ? el.value.trim() : ""; };
+      var msg = [(isP ? "Partnership enquiry" : "Website contact") + " – Ref: " + ref, "", "Name: " + v("name"), isP ? "Organisation: " + v("organisation") : null, "Email: " + v("email"), v("phone") ? "Phone: " + v("phone") : null, "Subject: " + v("subject"), "Message: " + v("description"), "", "Page: " + location.href].filter(function (x) { return x !== null; }).join("\n");
+      window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+      var fn = v("name").split(" ")[0].replace(/[<>&"']/g, "");
+      var pane = form.parentNode, saved = form;
+      var box = document.createElement("div"); box.className = "cf-ok";
+      box.innerHTML = '<i class="bi bi-check-circle-fill"></i><h3>Thank you, ' + fn + '! 🎉</h3><p>Your ' + (isP ? "partnership enquiry" : "message") + ' has reached the NCPL team. We will get back to you within <b>1 business day</b>.</p><p style="color:#254E93;font-weight:600">' + THANKS[Math.floor(Math.random() * THANKS.length)] + '</p><span class="ref">Reference: ' + ref + '</span><br><button type="button">Send another message</button>';
+      pane.replaceChild(box, form);
+      box.querySelector("button").onclick = function () { form.reset(); form.querySelectorAll(".cf-count").forEach(function (c) { c.textContent = "0 / 1000"; }); pane.replaceChild(saved, box); };
+    }, true);
+  });
+})();
