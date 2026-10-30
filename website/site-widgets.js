@@ -108,8 +108,8 @@
   var waEl = fabs.querySelector(".sw-wa"); if (waEl) { setTimeout(function () { waEl.classList.add("peek"); }, 2500); setTimeout(function () { waEl.classList.remove("peek"); }, 7500); }
 
   // Chat panel
-  var p = document.createElement("div"); p.className = "sw-panel"; p.hidden = true; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "ReMeDi Assistant");
-  p.innerHTML = '<div class="sw-head"><div class="sw-av"><i class="bi bi-heart-pulse-fill"></i></div><div><b>ReMeDi Assistant</b><small>Online · replies instantly</small></div><button class="sw-x" aria-label="Close chat"><i class="bi bi-x-lg"></i></button></div>' +
+  var p = document.createElement("div"); p.className = "sw-panel"; p.hidden = true; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Remy, ReMeDi Assistant");
+  p.innerHTML = '<div class="sw-head"><div class="sw-av"><i class="bi bi-heart-pulse-fill"></i></div><div><b>Remy · ReMeDi Assistant</b><small>Online · replies instantly</small></div><button class="sw-x" aria-label="Close chat"><i class="bi bi-x-lg"></i></button></div>' +
     '<div class="sw-body" aria-live="polite"></div><form class="sw-in"><input placeholder="Type your question…" aria-label="Your message" autocomplete="off"><button aria-label="Send"><i class="bi bi-send-fill"></i></button></form><div class="sw-foot">Automated assistant · for detailed queries our team will respond</div>';
   document.body.appendChild(p);
   var body = p.querySelector(".sw-body"), inp = p.querySelector("input");
@@ -118,8 +118,8 @@
     ? ["How does it work?", "Which tests?", "e-Sanjeevani", "How to integrate?", "Get an integration quote", "Site map", "Talk to a person"]
     : ["About NCPL", "Our products", "ReMeDi Platform", "ReMeDi Kit", "Awards", "Site map", "Talk to a person"];
   var GREET = ON_IOT
-    ? "Hi there! 👋 Exploring ReMeDi IoT? I can explain how it connects point-of-care tests to your health platform, the 27 tests it supports, or prepare an integration quote for you."
-    : "Hi there! 👋 Welcome to Neurosynaptic. Need some help? I can tell you about NCPL, the ReMeDi Platform and Kit, our healthcare models and products — or connect you with our team.";
+    ? "Hi there! 👋 I'm Remy. Exploring ReMeDi IoT? I can explain how it connects point-of-care tests to your health platform, the 27 tests it supports, or prepare an integration quote for you."
+    : "Hi there! 👋 I'm Remy, your ReMeDi assistant. Welcome to Neurosynaptic! Need some help? I can tell you about NCPL, the ReMeDi Platform and Kit, our healthcare models and products — or connect you with our team.";
   var KB = [
     { k: ["site map", "sitemap", "navigate", "pages", "menu", "where can i find"], a: 'Here is everything on our site:<br>• <a href="neurosynaptic_site_clone.html">Home</a><br>• About: <a href="about-us.html">About Us</a>, <a href="leadership-team-head.html">Leadership</a>, <a href="board-of-directors.html">Board</a>, <a href="partnerships.html">Partnerships</a>, <a href="testimonial.html">Testimonials</a>, <a href="commitment-to-quality-2.html">Quality</a>, <a href="awards-and-recognitions-2.html">Awards</a><br>• Solutions: <a href="our-services-and-solutions.html">Services & Solutions</a>, <a href="remedi-solutions-suite.html">ReMeDi Solutions Suite</a>, <a href="remedi-kit-standard-configuration.html">ReMeDi Kit configuration</a><br>• Products: <a href="remedi-iot.html">ReMeDi IoT</a><br>• Media: <a href="downloads.html">Downloads</a>, <a href="photo-gallery.html">Photos</a>, <a href="video-gallery.html">Videos</a>, <a href="blog.html">Blog</a><br>• <a href="contact-us-2.html">Contact Us</a>', q: ["Leadership", "Awards", "Downloads", "Talk to a person"] },
     { k: ["leader", "founder", "ceo", "sameer", "rajeev", "management"], a: 'NCPL was founded in 2002 by Sameer Sawarkar (Founder & CEO, Ashoka Fellow, 29 years of technical and management experience) and Rajeev Kumar. Meet the full team on the <a href="leadership-team-head.html">Leadership page</a>.', q: ["Board of directors", "About NCPL"] },
@@ -266,7 +266,7 @@
   setTimeout(function () {
     if (!p.hidden || !q.hidden) return;
     var t = document.createElement("div"); t.className = "sw-teaser"; t.setAttribute("role", "status");
-    t.innerHTML = '<button class="tx" aria-label="Dismiss">×</button><b>Hi there! 👋</b>' + (ON_IOT ? "Have questions about ReMeDi IoT? Is there anything I can help you with?" : "Is there anything I can help you with today?");
+    t.innerHTML = '<button class="tx" aria-label="Dismiss">×</button><b>Hi, I'm Remy! 👋</b>' + (ON_IOT ? "Have questions about ReMeDi IoT? Is there anything I can help you with?" : "Is there anything I can help you with today?");
     t.onclick = function (e) { t.remove(); if (!e.target.classList.contains("tx")) open(); };
     document.body.appendChild(t);
     fabs.querySelector(".sw-chat-btn").addEventListener("click", function () { t.remove(); });
