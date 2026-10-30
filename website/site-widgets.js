@@ -347,7 +347,7 @@ function u(){f.classList.toggle('chat-on',!p.hidden)}new MutationObserver(u).obs
 (function () {
   var img = document.querySelector(".map-area .wp-block-image img");
   if (!img) return;
-  var P = [["Europe",46.4,30.0],["Europe",50.5,27.4],["North America",17.6,36.4],["North America",17.0,48.0],["North Africa",49.4,43.4],["West Africa",43.0,54.2],["East Africa",57.3,66.0],["Southern Africa",51.1,74.5],["Southern Africa",54.1,83.1],["South Asia",72.0,49.8],["South-East Asia",73.6,54.2],["South-East Asia",75.3,56.1],["Oceania",84.2,79.8],["Pacific",97.3,74.5]];
+  var P = [["Europe",46.4,30.0],["Europe",50.5,27.4],["North America",17.6,36.4],["North America",17.0,48.0],["North Africa",49.4,43.4],["West Africa",43.0,54.2],["East Africa",57.3,66.0],["Southern Africa",51.1,74.5],["Southern Africa",54.1,83.1],["South Asia",72.0,49.8],["South-East Asia",73.6,54.2],["South-East Asia",75.3,56.1],["Oceania",84.2,79.8],["Pacific",97.3,74.5],["Papua New Guinea",88.5,67.1],["Panama",23.5,57.5]];
   var HUB = ["India · HQ Bangalore", 68.6, 55.1];
   var st = document.createElement("style");
   st.textContent = `
