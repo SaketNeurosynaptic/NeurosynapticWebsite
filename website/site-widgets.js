@@ -9,6 +9,8 @@
     LEAD_ENDPOINT: "",
     /* Silent WhatsApp alert to WHATSAPP_NUMBER via CallMeBot (free). Paste the apikey CallMeBot sends you. Temporary until a backend/WhatsApp Business API is in place. */
     WA_ALERT_APIKEY: "",
+    /* Email delivery via FormSubmit (free, no backend). First submission sends a one-time activation email to this address. */
+    LEAD_EMAIL: "saket.barmate@neurosynaptic.com",
     WHATSAPP_TEXT: "Hello NCPL, I would like to know more about ReMeDi IoT.",
     EMAIL: "info@neurosynaptic.com",
     PHONE: "+91-80-4131-3168",
@@ -26,7 +28,9 @@
     try { var q = JSON.parse(localStorage.getItem("ncplLeads") || "[]"); q.push(JSON.parse(payload)); localStorage.setItem("ncplLeads", JSON.stringify(q.slice(-50))); } catch (e) {}
     var key = (CONFIG.WA_ALERT_APIKEY || "").trim();
     if (key && CONFIG.WHATSAPP_NUMBER) { try { fetch("https://api.callmebot.com/whatsapp.php?phone=" + CONFIG.WHATSAPP_NUMBER + "&apikey=" + encodeURIComponent(key) + "&text=" + encodeURIComponent(msg.slice(0, 1500)), { mode: "no-cors", keepalive: true }); } catch (e) {} }
-    if (!ep && !key) { console.warn("[NCPL] No LEAD_ENDPOINT / WA_ALERT_APIKEY configured – lead kept in this browser only:", ref); return; }
+    var mail = (CONFIG.LEAD_EMAIL || "").trim();
+    if (mail) { try { fetch("https://formsubmit.co/ajax/" + mail, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify({ _subject: "[NCPL website] " + type + " – " + ref, _template: "box", _captcha: "false", Type: type, Reference: ref, Details: msg, Page: location.href }), keepalive: true }).catch(function (e) { console.warn("[NCPL] email send failed", e); }); } catch (e) {} }
+    if (!ep && !key && !mail) { console.warn("[NCPL] No LEAD_ENDPOINT / WA_ALERT_APIKEY configured – lead kept in this browser only:", ref); return; }
     if (!ep) return;
     if (false) { console.warn("[NCPL] LEAD_ENDPOINT not configured – lead kept in this browser only:", ref); return; }
     try { fetch(ep, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload, keepalive: true }); } catch (e) { console.warn("[NCPL] lead send failed", e); }
