@@ -266,7 +266,7 @@
   setTimeout(function () {
     if (!p.hidden || !q.hidden) return;
     var t = document.createElement("div"); t.className = "sw-teaser"; t.setAttribute("role", "status");
-    t.innerHTML = '<button class="tx" aria-label="Dismiss">×</button><b>Hi, I'm Remy! 👋</b>' + (ON_IOT ? "Have questions about ReMeDi IoT? Is there anything I can help you with?" : "Is there anything I can help you with today?");
+    t.innerHTML = '<button class="tx" aria-label="Dismiss">×</button><b>Hi, I\'m Remy! 👋</b>' + (ON_IOT ? "Have questions about ReMeDi IoT? Is there anything I can help you with?" : "Is there anything I can help you with today?");
     t.onclick = function (e) { t.remove(); if (!e.target.classList.contains("tx")) open(); };
     document.body.appendChild(t);
     fabs.querySelector(".sw-chat-btn").addEventListener("click", function () { t.remove(); });
