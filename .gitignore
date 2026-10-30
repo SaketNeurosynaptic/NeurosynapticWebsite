@@ -1,0 +1,19 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Office temp / lock files
+~$*
+*.tmp
+.~lock.*
+
+# Archives & local exports
+*.zip
+
+# Secrets – never commit
+.env
+*.key
+*credentials*
