@@ -5,6 +5,8 @@
   var CONFIG = {
     WHATSAPP_NUMBER: "918871613869", /* temporary – replace with company WhatsApp Business number */
     AUTO_OPEN_SECONDS: 6,
+    /* Leads endpoint (Google Apps Script web-app URL, see backend/lead-capture.gs). Leads are sent silently in the background. */
+    LEAD_ENDPOINT: "",
     WHATSAPP_TEXT: "Hello NCPL, I would like to know more about ReMeDi IoT.",
     EMAIL: "info@neurosynaptic.com",
     PHONE: "+91-80-4131-3168",
@@ -16,6 +18,14 @@
       { n: "X", i: "bi-twitter-x", u: "https://x.com/neurosynaptic", g: "linear-gradient(135deg,#333,#000)", sh: "rgba(0,0,0,.45)" }
     ]
   };
+  window.ncplSendLead = function (type, ref, msg, data) {
+    var ep = (window.NCPL_LEAD_ENDPOINT || CONFIG.LEAD_ENDPOINT || "").trim();
+    var payload = JSON.stringify({ type: type, ref: ref, message: msg, data: data || {}, page: location.href, ts: new Date().toISOString() });
+    try { var q = JSON.parse(localStorage.getItem("ncplLeads") || "[]"); q.push(JSON.parse(payload)); localStorage.setItem("ncplLeads", JSON.stringify(q.slice(-50))); } catch (e) {}
+    if (!ep) { console.warn("[NCPL] LEAD_ENDPOINT not configured – lead kept in this browser only:", ref); return; }
+    try { fetch(ep, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload, keepalive: true }); } catch (e) { console.warn("[NCPL] lead send failed", e); }
+  };
+  window.NCPL_LEAD_ENDPOINT = CONFIG.LEAD_ENDPOINT;
   var ON_IOT = /remedi-iot/i.test(location.pathname);
   var ON_HOME = /neurosynaptic_site_clone|index\.html$|\/$/i.test(location.pathname);
   var IOT = ON_IOT ? "#" : "remedi-iot.html";
@@ -248,8 +258,7 @@
     var ref = "RQ-" + Date.now().toString(36).toUpperCase().slice(-6);
     msg = "Ref: " + ref + "\n" + msg;
     // Internal routing: for now the lead goes to the NCPL WhatsApp inbox (replace with CRM/API backend later)
-    if (wa) window.open("https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
-    else location.href = "mailto:" + CONFIG.EMAIL + "?subject=" + encodeURIComponent("Quote request " + ref) + "&body=" + encodeURIComponent(msg);
+    window.ncplSendLead("quote", ref, msg);
     var THANKS = [
       "Together, we are bringing quality diagnostics closer to every community.",
       "Every test brought closer to a patient is a life made healthier — thank you for taking this step with us.",
@@ -501,7 +510,7 @@ function u(){f.classList.toggle('chat-on',!p.hidden)}new MutationObserver(u).obs
       var ref = (isP ? "PT-" : "CT-") + Date.now().toString(36).toUpperCase().slice(-6);
       var v = function (n) { var el = form.querySelector("[name=" + n + "]"); return el ? el.value.trim() : ""; };
       var msg = [(isP ? "Partnership enquiry" : "Website contact") + " – Ref: " + ref, "", "Name: " + v("name"), isP ? "Organisation: " + v("organisation") : null, "Email: " + v("email"), v("phone") ? "Phone: " + v("phone") : null, "Subject: " + v("subject"), "Message: " + v("description"), "", "Page: " + location.href].filter(function (x) { return x !== null; }).join("\n");
-      window.open("https://wa.me/" + WA + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+      if (window.ncplSendLead) window.ncplSendLead(isP ? "partnership" : "contact", ref, msg);
       var fn = v("name").split(" ")[0].replace(/[<>&"']/g, "");
       var pane = form.parentNode, saved = form;
       var box = document.createElement("div"); box.className = "cf-ok";
