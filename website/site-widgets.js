@@ -7,6 +7,8 @@
     AUTO_OPEN_SECONDS: 6,
     /* Leads endpoint (Google Apps Script web-app URL, see backend/lead-capture.gs). Leads are sent silently in the background. */
     LEAD_ENDPOINT: "",
+    /* Silent WhatsApp alert to WHATSAPP_NUMBER via CallMeBot (free). Paste the apikey CallMeBot sends you. Temporary until a backend/WhatsApp Business API is in place. */
+    WA_ALERT_APIKEY: "",
     WHATSAPP_TEXT: "Hello NCPL, I would like to know more about ReMeDi IoT.",
     EMAIL: "info@neurosynaptic.com",
     PHONE: "+91-80-4131-3168",
@@ -22,7 +24,11 @@
     var ep = (window.NCPL_LEAD_ENDPOINT || CONFIG.LEAD_ENDPOINT || "").trim();
     var payload = JSON.stringify({ type: type, ref: ref, message: msg, data: data || {}, page: location.href, ts: new Date().toISOString() });
     try { var q = JSON.parse(localStorage.getItem("ncplLeads") || "[]"); q.push(JSON.parse(payload)); localStorage.setItem("ncplLeads", JSON.stringify(q.slice(-50))); } catch (e) {}
-    if (!ep) { console.warn("[NCPL] LEAD_ENDPOINT not configured – lead kept in this browser only:", ref); return; }
+    var key = (CONFIG.WA_ALERT_APIKEY || "").trim();
+    if (key && CONFIG.WHATSAPP_NUMBER) { try { fetch("https://api.callmebot.com/whatsapp.php?phone=" + CONFIG.WHATSAPP_NUMBER + "&apikey=" + encodeURIComponent(key) + "&text=" + encodeURIComponent(msg.slice(0, 1500)), { mode: "no-cors", keepalive: true }); } catch (e) {} }
+    if (!ep && !key) { console.warn("[NCPL] No LEAD_ENDPOINT / WA_ALERT_APIKEY configured – lead kept in this browser only:", ref); return; }
+    if (!ep) return;
+    if (false) { console.warn("[NCPL] LEAD_ENDPOINT not configured – lead kept in this browser only:", ref); return; }
     try { fetch(ep, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: payload, keepalive: true }); } catch (e) { console.warn("[NCPL] lead send failed", e); }
   };
   window.NCPL_LEAD_ENDPOINT = CONFIG.LEAD_ENDPOINT;
