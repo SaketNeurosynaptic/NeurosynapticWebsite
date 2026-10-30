@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="shortcut icon" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/images/favicon.ico" type="image/png">
+<title>ReMeDi IoT - NCPL</title>
+<meta name="description" content="ReMeDi IoT: connected point-of-care diagnostics that flow results straight into your platform.">
+<style>
+:where(body){margin:0}.wp-block-group{box-sizing:border-box}body .is-layout-flex{display:flex}.is-layout-flex{flex-wrap:wrap;align-items:center}.is-layout-flex>:is(*,div){margin:0}.is-vertical{flex-direction:column;align-items:stretch}.is-nowrap{flex-wrap:nowrap}.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom}.wp-block-image figure,figure.wp-block-image{margin:0}
+.wp-container-core-group-is-layout-4fc3f8e1{flex-direction:column;align-items:stretch}.wp-container-core-group-is-layout-8f761849{flex-wrap:nowrap}
+</style>
+<link rel="stylesheet" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/css/jquery.fancybox.min.css?ver=3.5.7">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/css/bootstrap.min.css?ver=5.1.3">
+<link rel="stylesheet" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/css/theme-style.min.css?ver=1.0.0">
+<link rel="stylesheet" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/css/extra.css?ver=1.2.0">
+<link rel="stylesheet" href="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/css/video-section.css?ver=1.0.0">
+<script src="https://neurosynaptic.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script src="https://neurosynaptic.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>:root{--navy:#02063B;--blue:#254E93;--l1:#D3E7FF;--l2:#E9F3FF;--l3:#C0EEFF;--g1:#F9F9F9;--g2:#F3F1F1;--tx:#333;--r:18px;--sh:0 10px 30px rgba(2,6,59,.08);--sh2:0 18px 44px rgba(2,6,59,.16)}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body.ri-page{font-family:NunitoSans-Regular,'Nunito Sans',sans-serif;color:var(--tx);background:#fff;overflow-x:hidden}
+.ri-page h1,.ri-page h2,.ri-page h3{font-family:inherit}
+.ri-skip{position:absolute;left:-999px;top:0;z-index:9999;background:#fff;padding:8px 14px}.ri-skip:focus{left:8px}
+/* hero + header */
+.ri-hero{position:relative;background:radial-gradient(1200px 600px at 85% 20%,#1a3f86 0%,transparent 60%),linear-gradient(135deg,#02063B 0%,#0b1660 55%,#254E93 100%);color:#fff;overflow:hidden;min-height:auto!important;height:auto!important;padding-bottom:80px}
+.ri-hero header{position:relative;z-index:5;padding:18px 0}
+.ri-hero header .container-fluid{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 4vw}
+.ri-hero header .logo img{max-height:56px;width:auto}
+.ri-hero header .nav-container{display:flex;align-items:center;gap:18px}
+.ri-hero .nav-menu{display:flex;list-style:none;margin:0;padding:0;gap:6px}
+.ri-hero .nav-menu>li{position:relative}
+.ri-hero .nav-menu>li>a{color:#fff;text-decoration:none;font-weight:700;padding:10px 12px;display:block;border-radius:8px}
+.ri-hero .nav-menu>li>a.active,.ri-hero .nav-menu>li>a:hover{background:rgba(255,255,255,.12)}
+.ri-hero .nav-dropdown{position:absolute;left:0;top:100%;min-width:220px;background:#fff;border-radius:12px;box-shadow:var(--sh2);list-style:none;padding:8px;margin:0;opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s;z-index:20}
+.ri-hero .nav-menu>li:hover .nav-dropdown,.ri-hero .nav-menu>li:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:none}
+.ri-hero .nav-dropdown a{color:var(--navy);display:block;padding:8px 12px;border-radius:8px;text-decoration:none}.ri-hero .nav-dropdown a:hover{background:var(--l2)}
+.ri-hero .search-icon a{color:#fff;font-size:18px}
+.ri-hero .nav-header{display:none}
+.ri-hero-bg span{position:absolute;border-radius:50%;filter:blur(60px);opacity:.35;animation:riFloat 14s ease-in-out infinite}
+.ri-hero-bg span:nth-child(1){width:380px;height:380px;background:#3d7bff;left:-120px;top:120px}
+.ri-hero-bg span:nth-child(2){width:300px;height:300px;background:#18c3ff;right:10%;bottom:-80px;animation-delay:-5s}
+.ri-hero-bg span:nth-child(3){width:220px;height:220px;background:#C0EEFF;left:45%;top:-60px;opacity:.18;animation-delay:-9s}
+@keyframes riFloat{50%{transform:translate(40px,-30px) scale(1.08)}}
+.ri-hero-in{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-top:40px}
+.ri-eyebrow{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:7px 14px;border-radius:999px;font-size:14px;font-weight:700;color:var(--l3);margin-bottom:22px}
+.ri-hero h1{font-size:clamp(32px,4.4vw,56px);line-height:1.08;font-weight:900;color:#fff;margin:0 0 20px;letter-spacing:-.01em}
+.ri-sub{font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:#dbe7ff;max-width:600px;margin-bottom:30px}
+.ri-btns{display:flex;flex-wrap:wrap;gap:14px}
+.ri-btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 26px;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s;border:2px solid transparent;line-height:1.2}
+.ri-btn:hover{transform:translateY(-2px)}
+.ri-btn-w{background:#fff;color:var(--navy)}.ri-btn-w:hover{box-shadow:0 10px 30px rgba(0,0,0,.25);color:var(--navy)}
+.ri-btn-o{border-color:rgba(255,255,255,.55);color:#fff}.ri-btn-o:hover{background:rgba(255,255,255,.1);color:#fff}
+.ri-btn-p{background:var(--blue);color:#fff}.ri-btn-p:hover{background:var(--navy);color:#fff}
+.ri-btn.sm{padding:8px 18px;font-size:14px}.ri-btn.lg{padding:16px 32px;font-size:17px}
+.ri-net{width:100%;max-width:540px;display:block;margin:auto;overflow:visible}
+.ri-nodes circle{fill:rgba(255,255,255,.08);stroke:rgba(192,238,255,.7);stroke-width:1.5}
+.ri-nodes circle.big{fill:rgba(255,255,255,.14);stroke:#fff}
+.ri-nodes i{display:flex;width:32px;height:32px;align-items:center;justify-content:center;font-size:24px;color:#fff}
+.ri-nodes .l{fill:#cfe0ff;font-size:13px;font-weight:700;text-anchor:middle;font-family:inherit}
+.ri-nodes g{animation:riPulse 3s ease-in-out infinite}.ri-nodes g:nth-child(4),.ri-nodes g:nth-child(5){animation-delay:-1.5s}
+@keyframes riPulse{50%{opacity:.82}}
+.ri-links path{stroke-dasharray:6 6;animation:riDash 1.4s linear infinite}@keyframes riDash{to{stroke-dashoffset:-24}}
+/* subnav */
+.ri-subnav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);box-shadow:0 4px 20px rgba(2,6,59,.08);transform:translateY(-110%);transition:transform .3s}
+.ri-subnav.on{transform:none}
+.ri-subnav .container{display:flex;align-items:center;gap:20px;height:62px}
+.ri-subnav-t{font-weight:900;color:var(--navy);white-space:nowrap}
+.ri-subnav ul{display:flex;gap:4px;list-style:none;margin:0 auto 0 0;padding:0;overflow-x:auto;scrollbar-width:none}
+.ri-subnav ul::-webkit-scrollbar{display:none}
+.ri-subnav ul a{display:block;padding:8px 12px;border-radius:999px;color:var(--blue);font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap}
+.ri-subnav ul a:hover,.ri-subnav ul a.cur{background:var(--l2);color:var(--navy)}
+/* sections */
+.ri-sec{padding:96px 0}
+.ri-bg-l{background:linear-gradient(180deg,var(--l2),#fff)}.ri-bg-g{background:var(--g1)}
+.ri-dark{background:linear-gradient(135deg,#02063B,#0f1f6b);color:#dbe7ff}
+.ri-dark .ri-h2,.ri-dark h3{color:#fff}.ri-dark .ri-lead{color:#c5d5f5}
+.ri-kick{display:inline-block;color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:13px;margin-bottom:10px}
+.ri-h2{font-size:clamp(28px,3vw,42px);font-weight:900;color:var(--blue);line-height:1.15;margin:0 0 14px}
+.ri-lead{font-size:18px;color:#555;max-width:720px;margin:0 0 44px}
+.ri-body{font-size:18px;line-height:1.75}
+.ri-narrow{max-width:880px}
+.ri-split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+/* stats */
+.ri-stats{margin-top:-50px;position:relative;z-index:3}
+.ri-stats-g{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-radius:22px;box-shadow:var(--sh2);overflow:hidden}
+.ri-stat{padding:30px 20px;text-align:center;border-right:1px solid #edf1f8}.ri-stat:last-child{border:0}
+.ri-num{font-size:clamp(34px,3.6vw,48px);font-weight:900;color:var(--blue);line-height:1}
+.ri-stat-l{margin-top:8px;color:#555;font-weight:600}
+/* problem */
+.ri-prob{background:var(--navy);color:#fff;border-radius:var(--r);padding:36px;box-shadow:var(--sh2)}
+.ri-prob h3{color:#fff;font-size:22px;font-weight:800;margin-bottom:20px}
+.ri-prob ul{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.ri-prob li{display:flex;gap:14px;line-height:1.55;color:#dbe7ff}.ri-prob li i{color:#ff8a8a;font-size:20px;flex:none;margin-top:1px}
+/* cards */
+.ri-cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.ri-card{position:relative;background:#fff;border-radius:var(--r);padding:34px 30px;box-shadow:var(--sh);border:1px solid #e8eef8;transition:transform .25s,box-shadow .25s}
+.ri-card:hover{transform:translateY(-6px);box-shadow:var(--sh2)}
+.ri-card h3{color:var(--navy);font-size:21px;font-weight:800;margin:18px 0 10px}.ri-card p{margin:0;line-height:1.6}
+.ri-step-n{position:absolute;right:24px;top:20px;font-size:40px;font-weight:900;color:var(--l2)}
+.ri-ico{width:60px;height:60px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),#4a7fd6);color:#fff;font-size:28px}
+.ri-ico.sm{width:48px;height:48px;font-size:22px;border-radius:14px;flex:none}
+/* timeline */
+.ri-tl{position:relative;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.ri-tl-line{position:absolute;left:8%;right:8%;top:30px;height:4px;background:var(--l1);border-radius:4px}
+.ri-tl-fill{position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--blue),#18a6ff);border-radius:4px;transition:width 2.2s cubic-bezier(.4,0,.2,1)}
+.ri-tl.go .ri-tl-fill{width:100%}
+.ri-packet{position:absolute;top:50%;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#18a6ff;box-shadow:0 0 0 6px rgba(24,166,255,.25),0 0 18px #18a6ff;opacity:0}
+.ri-tl.go .ri-packet{opacity:1;animation:riPk 4.5s 2.2s ease-in-out infinite}
+@keyframes riPk{0%{left:0}90%,100%{left:100%}}
+.ri-tl-item{position:relative;text-align:center}
+.ri-tl-dot{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;background:#fff;border:3px solid var(--l1);display:grid;place-items:center;font-size:24px;color:var(--blue);position:relative;z-index:1;transition:.4s}
+.ri-tl-item.in .ri-tl-dot{border-color:var(--blue);background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(37,78,147,.35)}
+.ri-tl-k{font-size:12px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.1em}
+.ri-tl-body h3{font-size:18px;font-weight:800;color:var(--navy);margin:6px 0 8px}.ri-tl-body p{font-size:15px;line-height:1.55;margin:0;color:#555}
+/* video */
+.ri-vid-w{text-align:center}.ri-vid-w .ri-lead{margin-left:auto;margin-right:auto}
+.ri-vframe{position:relative;max-width:980px;margin:0 auto;border-radius:24px;padding:10px;background:linear-gradient(135deg,#C0EEFF,#254E93 50%,#18a6ff);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.ri-vframe video{display:block;width:100%;aspect-ratio:16/9;border-radius:16px;background:#000}
+.ri-play{position:absolute;inset:10px;border:0;border-radius:16px;background:radial-gradient(circle,rgba(2,6,59,.35),rgba(2,6,59,.75));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;transition:opacity .3s}
+.ri-play span{width:96px;height:96px;border-radius:50%;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:44px;padding-left:6px;box-shadow:0 0 0 0 rgba(255,255,255,.6);animation:riRing 2s infinite;transition:transform .2s}
+.ri-play:hover span{transform:scale(1.08)}.ri-play em{font-style:normal;font-weight:800;font-size:18px}
+.ri-play.off{opacity:0;pointer-events:none}
+@keyframes riRing{70%{box-shadow:0 0 0 22px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+/* arch */
+.ri-arch{display:block;position:relative;width:100%;border:0;padding:16px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);cursor:zoom-in;transition:box-shadow .25s}
+.ri-arch:hover{box-shadow:var(--sh2)}.ri-arch img{width:100%;height:auto;display:block;border-radius:10px}
+.ri-arch span{position:absolute;right:28px;bottom:28px;background:var(--navy);color:#fff;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;display:flex;gap:8px}
+.ri-lb{position:fixed;inset:0;z-index:3000;background:rgba(2,6,59,.92);display:flex;align-items:center;justify-content:center;padding:4vw;overflow:auto}
+.ri-lb[hidden]{display:none}.ri-lb img{max-width:100%;max-height:100%;border-radius:10px;background:#fff}
+.ri-lb-x{position:absolute;top:16px;right:16px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:var(--navy);font-size:20px}
+/* tests */
+.ri-tests{display:grid;grid-template-columns:1.5fr 1fr;gap:24px}
+.ri-tg{background:#fff;border:1px solid #e3ebf7;border-radius:var(--r);padding:26px;box-shadow:var(--sh)}
+.ri-tg:first-child{grid-row:span 3}
+.ri-tg-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}.ri-tg-h>i{font-size:22px;color:var(--blue)}
+.ri-tg-h h3{margin:0;font-size:19px;font-weight:800;color:var(--navy)}
+.ri-badge-n{margin-left:auto;background:var(--l2);color:var(--blue);font-weight:800;border-radius:999px;padding:3px 12px;font-size:14px}
+.ri-chips{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.ri-chips li{display:inline-flex;align-items:center;gap:8px;background:var(--l2);border:1px solid var(--l1);color:var(--navy);border-radius:999px;padding:8px 14px;font-weight:700;font-size:15px;transition:.2s}
+.ri-chips li i{color:var(--blue)}.ri-chips li:hover{background:var(--blue);color:#fff;transform:translateY(-2px)}.ri-chips li:hover i{color:#fff}
+/* benefits */
+.ri-bens{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ri-ben{display:flex;gap:16px;background:#fff;border-radius:var(--r);padding:26px;box-shadow:var(--sh);transition:transform .25s}.ri-ben:hover{transform:translateY(-4px)}
+.ri-aud{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#2f7fd1}
+.ri-ben h3{font-size:18px;font-weight:800;color:var(--navy);margin:4px 0 8px}.ri-ben p{margin:0;line-height:1.55}
+/* security */
+.ri-secl{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.ri-secl li{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 18px;color:#fff;font-weight:600}
+.ri-secl li span{width:38px;height:38px;flex:none;border-radius:10px;background:rgba(192,238,255,.15);display:grid;place-items:center;color:var(--l3);font-size:18px}
+.ri-proof{background:#fff;color:var(--tx);border-radius:22px;padding:38px;box-shadow:0 30px 70px rgba(0,0,0,.35);position:relative}
+.ri-proof h3{color:var(--navy)!important;font-size:26px;font-weight:900;margin:18px 0 12px}.ri-proof p{line-height:1.7}
+.ri-live{display:inline-flex;align-items:center;gap:10px;background:#e6f8ee;color:#0b7a3e;border:1px solid #9fdcb8;border-radius:999px;padding:8px 16px;font-weight:800}
+.ri-live i{width:10px;height:10px;border-radius:50%;background:#18b45b;box-shadow:0 0 0 0 rgba(24,180,91,.6);animation:riLive 1.6s infinite}
+@keyframes riLive{70%{box-shadow:0 0 0 10px rgba(24,180,91,0)}100%{box-shadow:0 0 0 0 rgba(24,180,91,0)}}
+.ri-proof-f{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.ri-proof-f div{background:var(--l2);border-radius:14px;padding:16px}.ri-proof-f b{display:block;font-size:26px;color:var(--blue);font-weight:900}.ri-proof-f span{font-size:14px}
+/* onboarding */
+.ri-onb{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:x}
+.ri-onb li{background:var(--g1);border-radius:var(--r);padding:28px 24px;border-top:4px solid var(--blue);transition:.25s}.ri-onb li:hover{background:#fff;box-shadow:var(--sh2)}
+.ri-on-n{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;font-weight:900;font-size:18px}
+.ri-onb h3{font-size:18px;font-weight:800;color:var(--navy);margin:16px 0 8px}.ri-onb p{margin:0;line-height:1.55}
+/* table */
+.ri-tbl{background:#fff;border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.ri-tbl table{width:100%;border-collapse:collapse}
+.ri-tbl th,.ri-tbl td{padding:18px 24px;border-bottom:1px solid #eef2f8;vertical-align:top;text-align:left}
+.ri-tbl tr:last-child>*{border:0}.ri-tbl tr:nth-child(even){background:#fbfcff}
+.ri-tbl th{width:34%;color:var(--blue);font-weight:800}
+/* faq */
+.ri-faq{background:#fff;border:1px solid #e3ebf7;border-radius:14px;margin-bottom:12px;transition:box-shadow .2s}
+.ri-faq[open]{box-shadow:var(--sh)}
+.ri-faq summary{list-style:none;cursor:pointer;padding:20px 24px;font-weight:800;color:var(--navy);font-size:18px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.ri-faq summary::-webkit-details-marker{display:none}
+.ri-faq summary i{color:var(--blue);transition:transform .25s;flex:none}.ri-faq[open] summary i{transform:rotate(45deg)}
+.ri-faq-a{padding:0 24px 20px}.ri-faq-a p{margin:0;line-height:1.65}
+/* cta */
+.ri-cta{padding:0 0 96px}
+.ri-cta-in{display:flex;align-items:center;justify-content:space-between;gap:30px;background:radial-gradient(600px 300px at 90% 0,#3d7bff55,transparent),linear-gradient(135deg,#02063B,#254E93);color:#dbe7ff;border-radius:28px;padding:56px;box-shadow:var(--sh2)}
+.ri-cta h2{color:#fff;font-size:clamp(26px,2.6vw,36px);font-weight:900;margin-bottom:10px}.ri-cta p{margin:0;font-size:17px}
+.ri-cta p a{color:var(--l3);font-weight:700}
+.ri-cta .ri-btn{flex:none}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;transition-delay:var(--d,0ms)}
+.rv.in{opacity:1;transform:none}
+.ri-page :focus-visible{outline:3px solid #18a6ff;outline-offset:3px}
+/* responsive */
+@media(max-width:1100px){.ri-tl{grid-template-columns:1fr;gap:0;padding-left:0}.ri-tl-line{left:30px;right:auto;top:30px;bottom:30px;width:4px;height:auto}
+.ri-tl-fill{width:100%!important;height:0;transition:height 2.2s}.ri-tl.go .ri-tl-fill{height:100%}
+@keyframes riPk{0%{top:0}90%,100%{top:100%}}.ri-packet{left:50%!important;top:0;margin:-7px 0 0 -7px}
+.ri-tl-item{display:flex;gap:20px;text-align:left;padding-bottom:26px}.ri-tl-dot{margin:0;flex:none}
+.ri-bens{grid-template-columns:1fr 1fr}.ri-onb{grid-template-columns:1fr 1fr}}
+@media(max-width:991px){.ri-hero-in,.ri-split{grid-template-columns:1fr}.ri-hero-art{max-width:460px;margin:0 auto}
+.ri-cards3{grid-template-columns:1fr}.ri-tests{grid-template-columns:1fr}.ri-tg:first-child{grid-row:auto}
+.ri-stats-g{grid-template-columns:1fr 1fr}.ri-stat:nth-child(2){border-right:0}.ri-stat:nth-child(-n+2){border-bottom:1px solid #edf1f8}
+.ri-cta-in{flex-direction:column;align-items:flex-start;padding:40px 28px}
+.ri-hero .nav-menus-wrapper{display:none}.ri-hero .nav-menus-wrapper.ri-open{display:block;position:absolute;left:16px;right:16px;top:84px;background:var(--navy);border-radius:16px;padding:12px;box-shadow:var(--sh2)}
+.ri-hero .nav-menus-wrapper.ri-open .nav-menu{flex-direction:column}.ri-hero .nav-menus-wrapper.ri-open .nav-dropdown{position:static;opacity:1;visibility:visible;transform:none;background:transparent;box-shadow:none;padding:0 0 0 14px}
+.ri-hero .nav-menus-wrapper.ri-open .nav-dropdown a{color:#cfe0ff}
+.ri-hero .nav-header{display:block}.ri-hero .nav-toggle{width:44px;height:44px;cursor:pointer;position:relative;border-radius:10px;background:rgba(255,255,255,.12)}
+.ri-hero .nav-toggle:before{content:"";position:absolute;left:12px;right:12px;top:14px;height:2px;background:#fff;box-shadow:0 7px 0 #fff,0 14px 0 #fff}}
+@media(max-width:640px){.container{padding-left:16px;padding-right:16px}.ri-sec{padding:64px 0}.ri-bens,.ri-onb{grid-template-columns:1fr}
+.ri-subnav-t,.ri-subnav .ri-btn{display:none}.ri-subnav .container{height:54px}
+.ri-hero{padding-bottom:70px}.ri-btn{width:100%;justify-content:center}.ri-prob,.ri-proof{padding:26px}
+.ri-tbl th,.ri-tbl td{display:block;width:auto;padding:12px 18px}.ri-tbl th{padding-bottom:0}
+.ri-arch span{right:22px;bottom:22px}.ri-play span{width:72px;height:72px;font-size:34px}.ri-play em{font-size:15px}
+.ri-hero header .logo img{max-height:44px}.ri-proof-f{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.ri-pk{display:none}.ri-tl-fill{width:100%}}
+.ri-subnav ul{min-width:0;flex:1}.ri-subnav .container{max-width:100%}
+.ri-cta .ri-btn{white-space:normal;text-align:center;max-width:100%}
+@media(max-width:640px){.ri-cta .ri-btn{flex:initial}}
+.ri-page *,.ri-page *:before,.ri-page *:after{box-sizing:border-box}
+.ri-page main .container,.ri-hero-in.container,.ri-subnav .container{width:100%;max-width:1240px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px}
+.ri-page main .container.ri-narrow{max-width:900px}
+@media(max-width:640px){.ri-page main .container,.ri-hero-in.container,.ri-subnav .container{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body class="page wp-theme-myavt_block_theme ri-page">
+<a class="ri-skip" href="#overview">Skip to content</a>
+<div class="search-modal" style="display: none;">
+ <a href="javascript:void(0)" class="btn-close-search-modal"><i class="bi bi-x-lg"></i></a>
+ <form method="get" class="search-modal-body" action="https://neurosynaptic.com/">
+  <div class="search-box"><input type="text" class="search-text" name="s" placeholder="Please enter your keywords..."><button class="btn-search-submit">Search</button></div>
+ </form>
+</div>
+<section class="slider-section ri-hero" id="top">
+ <header>
+  <div class="container-fluid">
+   <a href="neurosynaptic_site_clone.html" class="logo"><img src="https://neurosynaptic.com/wp-content/uploads/2024/12/footer-logo.png" class="img-fluid" alt="Neurosynaptic Communications Pvt. Ltd."></a>
+   <div class="nav-container">
+    <nav id="navigation1" class="navigation">
+     <div class="nav-header"><div class="nav-toggle"></div></div>
+     <div class="nav-menus-wrapper">
+      <ul id="menu-top-navigation" class="nav-menu align-to-right">
+       <li class="menu-item menu-item-home"><a href="neurosynaptic_site_clone.html">Home</a></li>
+       <li class="menu-item menu-item-has-children"><a href="#">About NCPL</a>
+        <ul class="nav-dropdown">
+         <li class="menu-item"><a href="about-us.html">About Us</a></li>
+         <li class="menu-item"><a href="partnerships.html">Partnerships</a></li>
+         <li class="menu-item"><a href="leadership-team-head.html">Leadership Team</a></li>
+         <li class="menu-item"><a href="board-of-directors.html">Board of Directors</a></li>
+         <li class="menu-item"><a href="testimonial.html">Testimonials</a></li>
+         <li class="menu-item"><a href="commitment-to-quality-2.html">Commitment to Quality</a></li>
+         <li class="menu-item"><a href="awards-and-recognitions-2.html">Awards and Recognitions</a></li>
+        </ul>
+       </li>
+       <li class="menu-item menu-item-has-children"><a href="our-services-and-solutions.html">Services and Solutions</a>
+        <ul class="nav-dropdown"><li class="menu-item"><a href="remedi-solutions-suite.html">ReMeDi Solutions Suite</a></li></ul>
+       </li>
+       <li class="menu-item menu-item-has-children"><a href="#">Media</a>
+        <ul class="nav-dropdown">
+         <li class="menu-item"><a href="downloads.html">Downloads</a></li>
+         <li class="menu-item"><a href="photo-gallery.html">Photos</a></li>
+         <li class="menu-item"><a href="video-gallery.html">Videos</a></li>
+        </ul>
+       </li>
+       <li class="menu-item menu-item-has-children"><a class="active" href="remedi-iot.html">Products</a>
+        <ul class="nav-dropdown"><li class="menu-item"><a href="remedi-iot.html">ReMeDi IoT</a></li></ul>
+       </li>
+       <li class="menu-item"><a href="contact-us-2.html">Contact Us</a></li>
+      </ul>
+     </div>
+     <div class="clearfix"></div>
+    </nav>
+    <div class="search-icon"><a href="javascript:void(0)" class="btn-open-modal"><i class="bi bi-search"></i></a></div>
+   </div>
+  </div>
+ </header>
+ <div class="ri-hero-bg" aria-hidden="true"><span></span><span></span><span></span></div>
+ <div class="container ri-hero-in">
+  <div class="ri-hero-copy">
+   <p class="ri-eyebrow"><i class="bi bi-broadcast-pin" aria-hidden="true"></i> ReMeDi® IoT · Connected point-of-care diagnostics</p>
+   <h1>Order a test from your platform. Get the result back. Automatically.</h1>
+   <p class="ri-sub">ReMeDi IoT lets any health platform — State HMIS, hospital HIS/EMR or third-party telemedicine — order point-of-care tests for a patient and receive readings and reports straight into its own system.</p>
+   <div class="ri-btns"><a class="ri-btn ri-btn-w" href="#quote" data-quote>Get integration quote <i class="bi bi-arrow-right" aria-hidden="true"></i></a><a class="ri-btn ri-btn-o" href="#video"><i class="bi bi-play-circle" aria-hidden="true"></i> Watch the 2.5-min explainer</a></div>
+  </div>
+  <div class="ri-hero-art"><svg class="ri-net" viewBox="0 0 520 420" role="img" aria-label="Devices send readings to the ReMeDi app, then to ReMeDi Cloud, then to your platform">
+<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#C0EEFF"/><stop offset="1" stop-color="#6FA8FF"/></linearGradient><filter id="gl"><feGaussianBlur stdDeviation="3"/></filter></defs>
+<g class="ri-links" stroke="url(#lg)" stroke-width="2" fill="none">
+<path id="p1" d="M70 90 C150 90 150 210 210 210"/><path id="p2" d="M70 210 L210 210"/><path id="p3" d="M70 330 C150 330 150 210 210 210"/>
+<path id="p4" d="M250 210 C300 150 320 130 360 130"/><path id="p5" d="M400 130 C450 160 450 260 450 300"/></g>
+<g class="ri-pk" fill="#fff"><circle r="5" filter="url(#gl)"><animateMotion dur="2.6s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+<circle r="5" filter="url(#gl)"><animateMotion dur="2.2s" begin=".7s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion></circle>
+<circle r="5" filter="url(#gl)"><animateMotion dur="2.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
+<circle r="5" filter="url(#gl)"><animateMotion dur="2s" begin=".3s" repeatCount="indefinite"><mpath href="#p4"/></animateMotion></circle>
+<circle r="5" filter="url(#gl)"><animateMotion dur="2.3s" begin="1s" repeatCount="indefinite"><mpath href="#p5"/></animateMotion></circle></g>
+<g class="ri-nodes">
+<g transform="translate(70 90)"><circle r="30"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-activity"></i></foreignObject><text class="l" y="50">ECG</text></g>
+<g transform="translate(70 210)"><circle r="30"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-lungs"></i></foreignObject><text class="l" y="50">SpO2</text></g>
+<g transform="translate(70 330)"><circle r="30"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-thermometer-half"></i></foreignObject><text class="l" y="50">Thermometer</text></g>
+<g transform="translate(230 210)"><circle r="38" class="big"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-tablet"></i></foreignObject><text class="l" y="60">ReMeDi app</text></g>
+<g transform="translate(380 130)"><circle r="38" class="big"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-cloud-check"></i></foreignObject><text class="l" y="60">ReMeDi Cloud</text></g>
+<g transform="translate(450 330)"><circle r="34"/><foreignObject x="-16" y="-16" width="32" height="32"><i xmlns="http://www.w3.org/1999/xhtml" class="bi bi-hospital"></i></foreignObject><text class="l" y="56">Your platform</text></g></g></svg></div>
+ </div>
+</section>
+<nav class="ri-subnav" aria-label="On this page"><div class="container"><span class="ri-subnav-t">ReMeDi<sup>®</sup> IoT</span><ul>
+<li><a href="#overview">Overview</a></li><li><a href="#how">How it works</a></li><li><a href="#video">Video</a></li><li><a href="#tests">Tests</a></li><li><a href="#specs">Specs</a></li><li><a href="#faq">FAQ</a></li></ul>
+<a class="ri-btn ri-btn-p sm" href="#quote" data-quote>Get a quote</a></div></nav>
+<main>
+<section class="ri-stats"><div class="container"><div class="ri-stats-g"><div class="ri-stat rv" style="--d:0ms"><div class="ri-num" data-to="27" data-suf="" data-comma="0">27</div><div class="ri-stat-l">Diagnostic parameters</div></div><div class="ri-stat rv" style="--d:90ms"><div class="ri-num" data-to="40" data-suf="+" data-comma="0">40+</div><div class="ri-stat-l">Point-of-care tests in the ReMeDi Kit</div></div><div class="ri-stat rv" style="--d:180ms"><div class="ri-num" data-to="2500" data-suf="+" data-comma="1">2,500+</div><div class="ri-stat-l">Rural health centres powered by ReMeDi</div></div><div class="ri-stat rv" style="--d:270ms"><div class="ri-num" data-to="12" data-suf="+" data-comma="0">12+</div><div class="ri-stat-l">Countries deployed</div></div></div></div></section>
+<section id="overview" class="ri-sec"><div class="container ri-split">
+ <div><span class="ri-kick rv">Overview</span><h2 class="ri-h2 rv">What is ReMeDi IoT?</h2><p class="rv ri-body">ReMeDi IoT is a connected point-of-care diagnostics solution. Your platform sends a test request; a health worker performs the tests with ReMeDi medical devices; results — structured readings, PDF reports, images and audio — flow back to your server automatically. No manual re-entry, no extra server at the facility.</p></div>
+ <div class="ri-prob rv"><h3>The gap between ordering a test and getting the result</h3><ul><li class="rv" style="--d:0ms"><i class="bi bi-x-octagon" aria-hidden="true"></i><span>Tests are ordered in one system but performed on standalone devices that don&#x27;t talk to it.</span></li><li class="rv" style="--d:90ms"><i class="bi bi-x-octagon" aria-hidden="true"></i><span>Readings are copied by hand, delaying care and inviting transcription errors.</span></li><li class="rv" style="--d:180ms"><i class="bi bi-x-octagon" aria-hidden="true"></i><span>ECG traces, auscultation audio and images rarely reach the patient record in their original form.</span></li></ul></div>
+</div></section>
+<section class="ri-sec ri-bg-l"><div class="container"><h2 class="ri-h2 rv">Three parts. One connected workflow.</h2><div class="ri-cards3"><article class="ri-card rv" style="--d:0ms"><div class="ri-ico"><i class="bi bi-heart-pulse" aria-hidden="true"></i></div><span class="ri-step-n">01</span><h3>ReMeDi medical devices</h3><p>Bluetooth and USB point-of-care devices from the portable ReMeDi Kit — the same devices already used in the field.</p></article><article class="ri-card rv" style="--d:110ms"><div class="ri-ico"><i class="bi bi-tablet" aria-hidden="true"></i></div><span class="ri-step-n">02</span><h3>ReMeDi Android app</h3><p>Runs on a tablet or phone. The health worker sees pending test requests, taps Take Test and captures readings from connected devices.</p></article><article class="ri-card rv" style="--d:220ms"><div class="ri-ico"><i class="bi bi-cloud-check" aria-hidden="true"></i></div><span class="ri-step-n">03</span><h3>ReMeDi Cloud</h3><p>Securely routes each request to the right health worker and pushes results back to your platform.</p></article></div></div></section>
+<section id="how" class="ri-sec"><div class="container"><h2 class="ri-h2 rv">How it works</h2><p class="ri-lead rv">Six steps from test order to result in your system.</p>
+ <ol class="ri-tl"><span class="ri-tl-line" aria-hidden="true"><span class="ri-tl-fill"></span><span class="ri-packet"></span></span><li class="ri-tl-item rv" style="--d:0ms"><div class="ri-tl-dot"><i class="bi bi-key" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 1</span><h3>Authenticate</h3><p>Your platform signs in with issued credentials and receives a time-bound access token.</p></div></li><li class="ri-tl-item rv" style="--d:60ms"><div class="ri-tl-dot"><i class="bi bi-send" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 2</span><h3>Send a test request</h3><p>Share patient details, tests required, the health worker&#x27;s phone number and your own visit ID.</p></div></li><li class="ri-tl-item rv" style="--d:120ms"><div class="ri-tl-dot"><i class="bi bi-signpost-split" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 3</span><h3>Routed to the health worker</h3><p>ReMeDi Cloud places the request on the health worker&#x27;s pending list.</p></div></li><li class="ri-tl-item rv" style="--d:180ms"><div class="ri-tl-dot"><i class="bi bi-clipboard2-pulse" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 4</span><h3>Perform the tests</h3><p>The health worker taps Take Test and uses the connected ReMeDi devices.</p></div></li><li class="ri-tl-item rv" style="--d:240ms"><div class="ri-tl-dot"><i class="bi bi-cloud-upload" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 5</span><h3>Upload results</h3><p>Readings and reports — PDF, images and audio — are uploaded from the app.</p></div></li><li class="ri-tl-item rv" style="--d:300ms"><div class="ri-tl-dot"><i class="bi bi-server" aria-hidden="true"></i></div><div class="ri-tl-body"><span class="ri-tl-k">Step 6</span><h3>Delivered to your server</h3><p>ReMeDi Cloud securely pushes results and files back to you, retrying until you acknowledge receipt.</p></div></li></ol></div></section>
+<section id="video" class="ri-sec ri-dark"><div class="container ri-vid-w"><h2 class="ri-h2 rv">See ReMeDi IoT in action</h2><p class="ri-lead rv">A 2.5-minute explainer walking through the full flow — from test order to results landing in your platform.</p>
+ <div class="ri-vframe rv"><video id="riVideo" src="ReMeDi_IoT_Explainer_Voiceover.mp4" controls preload="metadata" playsinline></video>
+ <button class="ri-play" type="button" aria-label="Play explainer video"><span><i class="bi bi-play-fill" aria-hidden="true"></i></span><em>Play the 2.5-min explainer</em></button></div></div></section>
+<section id="tests" class="ri-sec"><div class="container"><h2 class="ri-h2 rv">27 diagnostic parameters, one kit</h2><p class="ri-lead rv">Results arrive as structured readings, PDF reports (ECG, spirometry, dermatoscope, otoscope) and WAV audio (stethoscope).</p><div class="ri-tests"><div class="ri-tg rv" style="--d:0ms"><div class="ri-tg-h"><i class="bi bi-activity" aria-hidden="true"></i><h3>Physiology</h3><span class="ri-badge-n">13</span></div><ul class="ri-chips"><li><i class="bi bi-activity" aria-hidden="true"></i>ECG</li><li><i class="bi bi-wind" aria-hidden="true"></i>Spirometer</li><li><i class="bi bi-soundwave" aria-hidden="true"></i>Stethoscope (heart &amp; lungs)</li><li><i class="bi bi-speedometer2" aria-hidden="true"></i>Blood Pressure</li><li><i class="bi bi-lungs" aria-hidden="true"></i>SpO2 / Pulse</li><li><i class="bi bi-thermometer-half" aria-hidden="true"></i>Temperature</li><li><i class="bi bi-heart-pulse" aria-hidden="true"></i>Heart Rate</li><li><i class="bi bi-ear" aria-hidden="true"></i>Otoscope</li><li><i class="bi bi-search" aria-hidden="true"></i>Dermatoscope</li><li><i class="bi bi-rulers" aria-hidden="true"></i>Height</li><li><i class="bi bi-box2" aria-hidden="true"></i>Weight</li><li><i class="bi bi-calculator" aria-hidden="true"></i>BMI</li><li><i class="bi bi-broadcast" aria-hidden="true"></i>Fetal Doppler</li></ul></div><div class="ri-tg rv" style="--d:90ms"><div class="ri-tg-h"><i class="bi bi-droplet-half" aria-hidden="true"></i><h3>Blood chemistry</h3><span class="ri-badge-n">4</span></div><ul class="ri-chips"><li><i class="bi bi-droplet" aria-hidden="true"></i>Blood Glucose</li><li><i class="bi bi-droplet-fill" aria-hidden="true"></i>Haemoglobin</li><li><i class="bi bi-moisture" aria-hidden="true"></i>Lipid Profile</li><li><i class="bi bi-moisture" aria-hidden="true"></i>Cholesterol</li></ul></div><div class="ri-tg rv" style="--d:180ms"><div class="ri-tg-h"><i class="bi bi-eyedropper" aria-hidden="true"></i><h3>Rapid tests</h3><span class="ri-badge-n">8</span></div><ul class="ri-chips"><li><i class="bi bi-shield-plus" aria-hidden="true"></i>HIV</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>Malaria</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>Dengue</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>HCV</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>Hepatitis B</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>Syphilis</li><li><i class="bi bi-shield-plus" aria-hidden="true"></i>Troponin</li><li><i class="bi bi-gender-female" aria-hidden="true"></i>Pregnancy</li></ul></div><div class="ri-tg rv" style="--d:270ms"><div class="ri-tg-h"><i class="bi bi-cup-straw" aria-hidden="true"></i><h3>Urine</h3><span class="ri-badge-n">1</span></div><ul class="ri-chips"><li><i class="bi bi-cup-straw" aria-hidden="true"></i>Urine checkup (10 parameters)</li></ul></div></div></div></section>
+<section class="ri-sec ri-bg-l"><div class="container"><h2 class="ri-h2 rv">Value for everyone in the chain</h2><div class="ri-bens"><article class="ri-ben rv" style="--d:0ms"><div class="ri-ico sm"><i class="bi bi-plug" aria-hidden="true"></i></div><div><span class="ri-aud">Integrators</span><h3>one connection, many tests</h3><p>Order 27 parameters through a single integration and receive results automatically.</p></div></article><article class="ri-ben rv" style="--d:90ms"><div class="ri-ico sm"><i class="bi bi-fingerprint" aria-hidden="true"></i></div><div><span class="ri-aud">Integrators</span><h3>your IDs, your server</h3><p>Results return tagged with your own visit ID to the receiver URLs you configure.</p></div></article><article class="ri-ben rv" style="--d:180ms"><div class="ri-ico sm"><i class="bi bi-phone" aria-hidden="true"></i></div><div><span class="ri-aud">Health workers</span><h3>one familiar app</h3><p>A pending list, a Take Test button and connected devices — no manual typing of readings.</p></div></article><article class="ri-ben rv" style="--d:0ms"><div class="ri-ico sm"><i class="bi bi-house-heart" aria-hidden="true"></i></div><div><span class="ri-aud">Patients</span><h3>tests close to home</h3><p>Point-of-care diagnostics at the facility, with results reaching the treating platform quickly.</p></div></article><article class="ri-ben rv" style="--d:90ms"><div class="ri-ico sm"><i class="bi bi-bank" aria-hidden="true"></i></div><div><span class="ri-aud">Government</span><h3>build on existing infrastructure</h3><p>Same app and devices already live with the national e-Sanjeevani platform — just routed to your system.</p></div></article><article class="ri-ben rv" style="--d:180ms"><div class="ri-ico sm"><i class="bi bi-buildings" aria-hidden="true"></i></div><div><span class="ri-aud">Government</span><h3>low facility footprint</h3><p>An Android tablet or phone, a ReMeDi Kit and internet. No server needed at the facility.</p></div></article></div></div></section>
+<section class="ri-sec ri-dark"><div class="container ri-split">
+ <div><h2 class="ri-h2 rv">Secure by design</h2><ul class="ri-secl"><li class="rv" style="--d:0ms"><span><i class="bi bi-key-fill" aria-hidden="true"></i></span>Separate credentials for each direction</li><li class="rv" style="--d:70ms"><span><i class="bi bi-hourglass-split" aria-hidden="true"></i></span>Time-bound access tokens</li><li class="rv" style="--d:140ms"><span><i class="bi bi-sliders" aria-hidden="true"></i></span>Per-integrator configuration</li><li class="rv" style="--d:210ms"><span><i class="bi bi-incognito" aria-hidden="true"></i></span>Result push carries only your visit ID — no patient name</li><li class="rv" style="--d:280ms"><span><i class="bi bi-person-gear" aria-hidden="true"></i></span>Admin portal for onboarding, API keys and user accounts</li><li class="rv" style="--d:350ms"><span><i class="bi bi-arrow-repeat" aria-hidden="true"></i></span>Automatic retry until delivery is acknowledged</li></ul></div>
+ <div class="ri-proof rv"><span class="ri-live"><i></i>Live with e-Sanjeevani</span><h3>Proven on a national platform</h3><p>ReMeDi IoT uses the same app UI as ReMeDi e-Sanjeevani, live with the national e-Sanjeevani platform of MoHFW/C-DAC — C-DAC confirmed integration completion in February 2025. The devices are unchanged; only routing in ReMeDi Cloud differs. The same app passed 86 test cases across functional, integration, security, performance and UI testing (Jun–Aug 2024).</p>
+ <div class="ri-proof-f"><div><b>Feb 2025</b><span>C-DAC confirmed integration completion</span></div><div><b>86</b><span>test cases passed (Jun–Aug 2024)</span></div></div></div>
+</div></section>
+<section class="ri-sec"><div class="container"><h2 class="ri-h2 rv">Get integrated in four steps</h2><ol class="ri-onb"><li class="rv" style="--d:0ms"><span class="ri-on-n">1</span><h3>Get credentials</h3><p>Receive client credentials through the ReMeDi admin portal.</p></li><li class="rv" style="--d:100ms"><span class="ri-on-n">2</span><h3>Share your endpoints</h3><p>Provide your receiver URLs and vendor credentials for result delivery.</p></li><li class="rv" style="--d:200ms"><span class="ri-on-n">3</span><h3>Build with our toolkit</h3><p>Use the Postman collection and integration guide we provide.</p></li><li class="rv" style="--d:300ms"><span class="ri-on-n">4</span><h3>Self-test and go live</h3><p>Validate end to end with the self-test harness before rollout.</p></li></ol></div></section>
+<section id="specs" class="ri-sec ri-bg-g"><div class="container ri-narrow"><h2 class="ri-h2 rv">Technical specifications</h2><div class="ri-tbl rv"><table><tbody><tr><th scope="row">Android versions</th><td>Android 12, 13, 14</td></tr><tr><th scope="row">Validated devices</th><td>Samsung Galaxy S21 FE, S23, Tab A7 / A8 / A9</td></tr><tr><th scope="row">Connectivity</th><td>4G / 5G / Wi-Fi</td></tr><tr><th scope="row">Device interfaces</th><td>Bluetooth, USB</td></tr><tr><th scope="row">Distribution</th><td>Google Play</td></tr><tr><th scope="row">Result formats</th><td>Structured readings, PDF, images, WAV audio</td></tr><tr><th scope="row">Facility requirements</th><td>Android tablet/phone + ReMeDi Kit + internet; no on-site server</td></tr><tr><th scope="row">Kit</th><td>Portable 3.5 kg briefcase</td></tr></tbody></table></div></div></section>
+<section id="faq" class="ri-sec"><div class="container ri-narrow"><h2 class="ri-h2 rv">Frequently asked questions</h2><details class="ri-faq rv" open><summary>Which platforms can integrate with ReMeDi IoT?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>Any health platform — State HMIS, hospital HIS/EMR or third-party telemedicine — that can send test requests and receive results.</p></div></details><details class="ri-faq rv"><summary>Do we need a server at each facility?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>No. An Android tablet or phone, the ReMeDi Kit and internet are enough.</p></div></details><details class="ri-faq rv"><summary>How is this different from ReMeDi e-Sanjeevani?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>The app UI and devices are the same; only the routing in ReMeDi Cloud differs, sending results to your platform.</p></div></details><details class="ri-faq rv"><summary>In what format do results arrive?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>Structured readings, PDF reports (ECG, spirometry, dermatoscope, otoscope), images and WAV stethoscope audio.</p></div></details><details class="ri-faq rv"><summary>What if our server is temporarily unavailable?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>ReMeDi Cloud retries the result push until your server acknowledges it.</p></div></details><details class="ri-faq rv"><summary>How do we get started?<i class="bi bi-plus-lg" aria-hidden="true"></i></summary><div class="ri-faq-a"><p>We issue client credentials via the admin portal and share a Postman collection, integration guide and self-test harness.</p></div></details></div></section>
+<section id="contact" class="ri-cta"><div class="container"><div class="ri-cta-in rv"><div><h2>Bring point-of-care diagnostics into your platform</h2><p>Talk to the NCPL team about integrating ReMeDi IoT. Write to <a href="mailto:info@neurosynaptic.com">info@neurosynaptic.com</a> or call <a href="tel:+918041313168">+91-80-4131-3168</a>.</p></div>
+<div style="display:flex;flex-direction:column;gap:12px"><a class="ri-btn ri-btn-w lg" href="#quote" data-quote>Get your integration quote <i class="bi bi-arrow-right" aria-hidden="true"></i></a><a class="ri-btn ri-btn-o lg" href="https://wa.me/918871613869?text=Hello%20NCPL%2C%20I%20would%20like%20a%20demo%20of%20ReMeDi%20IoT." target="_blank" rel="noopener"><i class="bi bi-whatsapp" aria-hidden="true"></i> Book a demo on WhatsApp</a></div></div></div></section>
+</main>
+<footer>
+ <div class="container-fluid">
+  <div class="footer-grid">
+   <div class="item">
+    <div><img src="https://neurosynaptic.com/wp-content/uploads/2024/12/footer-logo.png" class="img-fluid" alt="Neurosynaptic Communications Pvt. Ltd."></div>
+    <div class="addess-box"><h4>Neurosynaptic Communications Pvt. Ltd.</h4>No. 48/2, Sulappa Tower, Doddanagamangala Electronic<br>City Post, Bangalore – 560 100 Karnataka, India.</div>
+   </div>
+   <div class="item">
+    <div class="footer-link">
+     <ul class="footer_quick">
+      <li class="menu-item"><a href="about-us.html">About Us</a></li>
+      <li class="menu-item"><a href="awards-and-recognitions-2.html">Awards and Recognitions</a></li>
+      <li class="menu-item"><a href="testimonial.html">Testimonials</a></li>
+      <li class="menu-item"><a href="e-waste-management-policy.html">e-Waste Management Policy</a></li>
+      <li class="menu-item"><a href="https://neurosynaptic.com/terms-conditions-privacy-policy/">Privacy Policy</a></li>
+      <li class="menu-item"><a href="blog.html">Blog</a></li>
+     </ul>
+    </div>
+   </div>
+   <div class="item">
+    <h4>Contact</h4>
+    <div class="contact-list"><ul>
+     <li><a class="sw-contact" href="mailto:info@neurosynaptic.com"><i class="bi bi-envelope-fill"></i> info@neurosynaptic.com</a></li>
+     <li><a class="sw-contact" href="tel:+918041313168"><i class="bi bi-telephone-fill"></i> +91-80-4131-3168</a></li>
+    </ul></div>
+    
+   </div>
+  </div>
+  <div class="footer-last-container">
+   <div class="copy-right">© <span class="js-year">2026</span> Neurosynaptic Communications Pvt. Ltd. All rights reserved.</div>
+   <div class="footer-secondary-menu"><ul class="footer">
+    <li class="menu-item current-menu-item"><a href="neurosynaptic_site_clone.html">Home</a></li>
+    <li class="menu-item"><a href="https://neurosynaptic.com/terms-conditions-privacy-policy/">Terms &amp; Conditions</a></li>
+   </ul></div>
+  </div>
+ </div>
+</footer>
+<script src="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/js/jquery.fancybox.min.js?ver=3.5.7"></script>
+<script src="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/js/bootstrap.bundle.min.js?ver=5.1.3"></script>
+<script src="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/js/custome-script.js?ver=1.0.0"></script>
+<script src="https://neurosynaptic.com/wp-content/themes/myavt_block_theme/assets/js/menu-script.js?ver=1.0.0"></script>
+<script>(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.documentElement.classList.add('ri-js');
+function count(el){var to=+el.dataset.to,suf=el.dataset.suf||'',cm=el.dataset.comma==='1';if(RM||!to)return;var t0=null,d=1600;
+function f(n){return cm?n.toLocaleString('en-IN'):String(n)}
+function st(t){if(!t0)t0=t;var p=Math.min((t-t0)/d,1),v=Math.round(to*(1-Math.pow(1-p,3)));el.textContent=f(v)+suf;if(p<1)requestAnimationFrame(st)}
+el.textContent=f(0)+suf;requestAnimationFrame(st)}
+if(!('IntersectionObserver' in window)){document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var t=e.target;t.classList.add('in');
+if(t.classList.contains('ri-stat'))count(t.querySelector('.ri-num'));io.unobserve(t)})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
+var tl=document.querySelector('.ri-tl');new IntersectionObserver(function(es,o){if(es[0].isIntersecting){tl.classList.add('go');o.disconnect()}},{threshold:.3}).observe(tl);
+// subnav
+var sn=document.querySelector('.ri-subnav'),hero=document.querySelector('.ri-hero');
+new IntersectionObserver(function(es){sn.classList.toggle('on',!es[0].isIntersecting)},{rootMargin:'-80px 0px 0px 0px'}).observe(hero);
+var links=[].slice.call(sn.querySelectorAll('ul a'));
+var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('cur',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)so.observe(s)});
+// video
+var v=document.getElementById('riVideo'),pb=document.querySelector('.ri-play');
+pb.addEventListener('click',function(){pb.classList.add('off');var p=v.play();if(p&&p.catch)p.catch(function(){})});
+v.addEventListener('play',function(){pb.classList.add('off')});
+// mobile menu fallback
+var tg=document.querySelector('.ri-hero .nav-toggle'),mw=document.querySelector('.ri-hero .nav-menus-wrapper');
+if(tg&&mw)tg.addEventListener('click',function(){mw.classList.toggle('ri-open')});
+})();
+</script>
+<script src="site-widgets.js"></script>
+</body></html>
