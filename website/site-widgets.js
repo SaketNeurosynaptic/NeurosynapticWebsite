@@ -342,3 +342,69 @@ function u(){f.classList.toggle('chat-on',!p.hidden)}new MutationObserver(u).obs
     map.parentNode.insertBefore(ch, map.nextSibling);
   }
 })();
+
+/* ---------- Advanced interactive impact map (home page) ---------- */
+(function () {
+  var img = document.querySelector(".map-area .wp-block-image img");
+  if (!img) return;
+  var P = [["Europe",46.4,30.0],["Europe",50.5,27.4],["North America",17.6,36.4],["North America",17.0,48.0],["North Africa",49.4,43.4],["West Africa",43.0,54.2],["East Africa",57.3,66.0],["Southern Africa",51.1,74.5],["Southern Africa",54.1,83.1],["South Asia",72.0,49.8],["South-East Asia",73.6,54.2],["South-East Asia",75.3,56.1],["Oceania",84.2,79.8],["Pacific",97.3,74.5]];
+  var HUB = ["India · HQ Bangalore", 68.6, 55.1];
+  var st = document.createElement("style");
+  st.textContent = `
+  .mz-wrap{position:relative;display:block;line-height:0}
+  .map-area .wp-block-image:hover img{transform:none}
+  .map-area .wp-block-image img{filter:saturate(.55) brightness(1.12);opacity:.85}
+  .map-area .wp-block-image{background:radial-gradient(ellipse at 68% 55%,#dcebff 0%,#f4f8ff 55%,#fff 100%)!important}
+  .mz-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+  .mz-arc{fill:none;stroke:url(#mzg);stroke-width:.35;stroke-linecap:round;stroke-dasharray:1.2 1.4;opacity:0;animation:mzDraw 1.4s ease forwards,mzFlow 3s linear infinite}
+  @keyframes mzDraw{from{opacity:0}to{opacity:.95}}
+  @keyframes mzFlow{to{stroke-dashoffset:-26}}
+  .mz-pt{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#254E93;border:2px solid #fff;box-shadow:0 0 0 0 rgba(37,78,147,.6);animation:mzPulse 2.4s infinite;cursor:pointer;z-index:2;opacity:0;transform:scale(.3);transition:opacity .5s,transform .5s cubic-bezier(.2,.8,.2,1)}
+  .mz-on .mz-pt{opacity:1;transform:scale(1)}
+  .mz-pt:hover{transform:scale(1.5)!important;background:#F59E0B}
+  .mz-hub{width:22px;height:22px;margin:-11px 0 0 -11px;background:#F59E0B;border:3px solid #fff;animation:mzHub 1.8s infinite;z-index:3}
+  @keyframes mzPulse{0%{box-shadow:0 0 0 0 rgba(37,78,147,.55)}70%{box-shadow:0 0 0 14px rgba(37,78,147,0)}100%{box-shadow:0 0 0 0 rgba(37,78,147,0)}}
+  @keyframes mzHub{0%{box-shadow:0 0 0 0 rgba(245,158,11,.7)}70%{box-shadow:0 0 0 22px rgba(245,158,11,0)}100%{box-shadow:0 0 0 0 rgba(245,158,11,0)}}
+  .mz-tip{position:absolute;transform:translate(-50%,-140%);background:#02063B;color:#fff;font:700 13px/1.2 'Nunito Sans',sans-serif;padding:7px 11px;border-radius:9px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;z-index:5;box-shadow:0 8px 20px rgba(2,6,59,.25)}
+  .mz-tip:after{content:"";position:absolute;left:50%;bottom:-5px;width:10px;height:10px;background:#02063B;transform:translateX(-50%) rotate(45deg)}
+  .mz-legend{position:absolute;left:18px;top:18px;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-radius:14px;padding:12px 14px;font:600 13px/1.6 'Nunito Sans',sans-serif;color:#02063B;box-shadow:0 6px 18px rgba(2,6,59,.12);line-height:1.7;z-index:4}
+  .mz-legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+  @media(max-width:768px){.mz-legend{display:none}.mz-pt{width:10px;height:10px;margin:-5px 0 0 -5px}.mz-hub{width:16px;height:16px;margin:-8px 0 0 -8px}}
+  @media(prefers-reduced-motion:reduce){.mz-arc,.mz-pt,.mz-hub{animation:none}}
+  `;
+  document.head.appendChild(st);
+  var wrap = document.createElement("span"); wrap.className = "mz-wrap";
+  img.parentNode.insertBefore(wrap, img); wrap.appendChild(img);
+  var ns = "http://www.w3.org/2000/svg", svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("class", "mz-svg"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("preserveAspectRatio", "none");
+  svg.innerHTML = '<defs><linearGradient id="mzg" x1="0" x2="1"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#254E93"/></linearGradient></defs>';
+  wrap.appendChild(svg);
+  var tip = document.createElement("div"); tip.className = "mz-tip"; wrap.appendChild(tip);
+  function pt(n, x, y, hub, i) {
+    var d = document.createElement("span"); d.className = "mz-pt" + (hub ? " mz-hub" : "");
+    d.style.left = x + "%"; d.style.top = y + "%"; d.style.transitionDelay = (hub ? 0 : 0.25 + i * 0.08) + "s";
+    d.setAttribute("tabindex", "0"); d.setAttribute("aria-label", n);
+    d.onmouseenter = d.onfocus = function () { tip.textContent = n; tip.style.left = x + "%"; tip.style.top = y + "%"; tip.style.opacity = 1; };
+    d.onmouseleave = d.onblur = function () { tip.style.opacity = 0; };
+    wrap.appendChild(d);
+  }
+  var lg = document.createElement("div"); lg.className = "mz-legend";
+  lg.innerHTML = '<div><i style="background:#F59E0B"></i>Headquarters – Bangalore</div><div><i style="background:#254E93"></i>ReMeDi deployments</div><div style="color:#555;font-weight:600">12+ countries · 6M+ lives</div>';
+  wrap.appendChild(lg);
+  function start() {
+    wrap.classList.add("mz-on");
+    pt(HUB[0], HUB[1], HUB[2], true, 0);
+    P.forEach(function (p, i) {
+      pt(p[0], p[1], p[2], false, i);
+      var mx = (HUB[1] + p[1]) / 2, my = Math.min(HUB[2], p[2]) - Math.abs(HUB[1] - p[1]) * 0.35 - 4;
+      var a = document.createElementNS(ns, "path");
+      a.setAttribute("d", "M" + HUB[1] + " " + HUB[2] + " Q" + mx + " " + my + " " + p[1] + " " + p[2]);
+      a.setAttribute("class", "mz-arc"); a.style.animationDelay = (0.4 + i * 0.12) + "s, 0s";
+      svg.appendChild(a);
+    });
+  }
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { start(); io.disconnect(); } }, { threshold: .3 });
+    io.observe(wrap);
+  } else start();
+})();
